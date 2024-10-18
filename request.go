@@ -6,5 +6,3 @@ import hg "hangmanweb/hangman-classic"
 func HangmanWeb() {
 
 }
-
-//a
