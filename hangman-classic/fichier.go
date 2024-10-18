@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	hg "hangman/functions"
+	hg "hangmanweb/hangman-classic/functions"
 )
 
 func main() {
