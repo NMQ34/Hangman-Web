@@ -1,14 +1,12 @@
-package main
+package game
 
 import (
 	"flag"
 	"fmt"
 	"os"
-
-	hg "hangmanweb/hangman-classic/functions"
 )
 
-func main() {
+func game() {
 	// Définir les options pour activer le mode difficile ou afficher l'aide
 	hardmode := flag.Bool("hardmode", false, "Activer le mode difficile avec des mots plus complexes.")
 	help := flag.Bool("help", false, "Afficher l'aide.")
@@ -32,7 +30,7 @@ func main() {
 	}
 
 	// Lancer la logique du jeu avec le dictionnaire sélectionné
-	hg.Logic(dictionaryPath)
+	hg.game(dictionaryPath)
 }
 
 // Fonction pour afficher les instructions d'utilisation du programme

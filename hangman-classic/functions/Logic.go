@@ -8,6 +8,11 @@ import (
 	"time"
 )
 
+// Définir une structure pour recevoir la donnée de la requête POST
+type RequestData struct {
+	Text string `json:"text"`
+}
+
 // Dictionnaire pour la correspondance entre les lettres accentuées et non accentuées
 var accentMap = map[rune][]rune{
 	'e': {'e', 'é', 'è', 'ê', 'ë'},
@@ -19,151 +24,150 @@ var accentMap = map[rune][]rune{
 }
 
 func Logic(dictionaryPath string) {
-	// Lire les étapes du pendu à partir du fichier
 	hangmanStages, err := readHangmanStages("ASCIIDisplay/hangman.txt")
 	if err != nil {
-		fmt.Println("Erreur lors de la lecture du fichier :", err)
+		handleError("Erreur lors de la lecture du fichier :", err)
 		return
 	}
 
-	// Lire le message de défaite
 	loseMessage, err := readLoseMessage("ASCIIDisplay/lose.txt")
 	if err != nil {
-		fmt.Println("Erreur lors de la lecture du fichier de lose :", err)
+		handleError("Erreur lors de la lecture du fichier de lose :", err)
 		return
 	}
 
-	// Lire le message de victoire
 	victoryMessage, err := readVictoryMessage("ASCIIDisplay/victory.txt")
 	if err != nil {
-		fmt.Println("Erreur lors de la lecture du fichier de victoire :", err)
+		handleError("Erreur lors de la lecture du fichier de victoire :", err)
 		return
 	}
 
-	// Lire les mots du dictionnaire en utilisant le chemin fourni
 	dictionaryWords, err := readDictionaryWords(dictionaryPath)
 	if err != nil {
-		fmt.Println("Erreur lors de la lecture du fichier dictionnaire :", err)
+		handleError("Erreur lors de la lecture du fichier dictionnaire :", err)
 		return
 	}
 
-	// Sélectionner un mot aléatoire à partir du dictionnaire
+	word, wordRunes := selectRandomWord(dictionaryWords)
+	blanks := initializeBlanks(wordRunes)
+	guessedLetters := make(map[rune]struct{})
+	numLettersToReveal := calculateLettersToReveal(wordRunes)
+	revealLetters(wordRunes, blanks, numLettersToReveal)
+
+	lives := 10
+	playGame(word, wordRunes, blanks, guessedLetters, hangmanStages, lives, loseMessage, victoryMessage)
+}
+
+func handleError(message string, err error) {
+	fmt.Println(message, err)
+}
+
+func selectRandomWord(dictionaryWords []string) (string, []rune) {
 	rand.Seed(time.Now().UnixNano())
 	word := dictionaryWords[rand.Intn(len(dictionaryWords))]
+	return word, []rune(word)
+}
 
-	// Convertir le mot en une slice de runes pour gérer les caractères accentués
-	wordRunes := []rune(word)
+func initializeBlanks(wordRunes []rune) []rune {
 	blanks := make([]rune, len(wordRunes))
 	for i := range blanks {
 		blanks[i] = '_'
 	}
+	return blanks
+}
 
-	// Stocker les lettres devinées dans une map
-	guessedLetters := make(map[rune]struct{})
-
-	// Calculer le nombre de lettres à révéler au début du jeu
+func calculateLettersToReveal(wordRunes []rune) int {
 	numLettersToReveal := (len(wordRunes) / 2) - 1
 	if numLettersToReveal < 0 {
-		numLettersToReveal = 0 // Assurer qu'il n'y ait pas de nombre négatif
+		numLettersToReveal = 0
 	}
+	return numLettersToReveal
+}
 
-	// Sélectionner des indices aléatoires pour révéler les lettres
-	revealedIndices := make(map[int]struct{}) // Utiliser un map pour éviter les doublons
+func revealLetters(wordRunes []rune, blanks []rune, numLettersToReveal int) {
+	revealedIndices := make(map[int]struct{})
 	for len(revealedIndices) < numLettersToReveal {
 		index := rand.Intn(len(wordRunes))
 		revealedIndices[index] = struct{}{}
 	}
-
-	// Révéler les lettres aux indices choisis
 	for index := range revealedIndices {
 		blanks[index] = wordRunes[index]
 	}
+}
 
-	lives := 10 // Nombre de vies du joueur
-
-	// Boucle de jeu principale
+func playGame(word string, wordRunes []rune, blanks []rune, guessedLetters map[rune]struct{}, hangmanStages []string, lives int, loseMessage string, victoryMessage string) {
 	for {
-		// Afficher l'état actuel du mot et des lettres déjà devinées
-		fmt.Printf("Word: [%s], Lettres déjà proposées: %s\n", string(blanks), getGuessedLetters(guessedLetters))
-		fmt.Print("Entrez une lettre: ")
+		displayGameState(blanks, guessedLetters, lives)
+		input := getUserInput()
 
-		// Lire l'entrée utilisateur
-		var input string
-		fmt.Scanln(&input)
-		input = strings.ToLower(input)
-
-		// Retirer les accents de l'entrée utilisateur
-		input = removeAccents(input)
-
-		// Gérer le cas où aucune entrée n'est fournie
-		if len(input) == 0 {
-			lives -= 3 // Réduire de 3 vies si aucune lettre n'est saisie
-			fmt.Println("Sérieusement !?")
-		} else if len(input) > 1 {
-			// Si un mot complet est saisi et correspond au mot à deviner
-			if removeAccents(input) == removeAccents(word) {
-				fmt.Println(victoryMessage) // Afficher le message de victoire
-				fmt.Printf("Le mot était : %s\n", word)
-				break
-			} else {
-				lives -= 2 // Réduire de 2 vies si le mot saisi est incorrect
-				fmt.Println("Mot incorrect!")
-			}
-		} else {
-			// Vérifier si la lettre a déjà été devinée
-			if _, exists := guessedLetters[rune(input[0])]; exists {
-				fmt.Println("Cette lettre a déjà été proposée.")
-				continue
-			}
-
-			// Ajouter la lettre aux lettres devinées
-			guessedLetters[rune(input[0])] = struct{}{}
-			correctGuess := false
-
-			// Vérifier si la lettre devinée correspond à une lettre du mot
-			for i, wordLetter := range wordRunes {
-				if containsAccentMatch(rune(input[0]), wordLetter) {
-					blanks[i] = wordLetter // Révéler la lettre dans les blancs
-					correctGuess = true
-					fmt.Println("Bon choix")
-				}
-			}
-
-			// Si la lettre est incorrecte, réduire les vies
-			if !correctGuess {
-				lives--
-				fmt.Println("Lettre incorrecte!")
-			}
+		if handleInput(input, word, wordRunes, blanks, guessedLetters, &lives) {
+			break
 		}
 
-		// Empêcher le nombre de vies de descendre en dessous de zéro
-		if lives < 0 {
-			lives = 0
-		}
-
-		// Afficher l'état du pendu en fonction des vies restantes
-		hangmanIndex := len(hangmanStages) - lives
-		if hangmanIndex >= 0 && hangmanIndex < len(hangmanStages) {
-			fmt.Println(hangmanStages[hangmanIndex])
-		}
-
-		// Vérifier si toutes les vies sont épuisées
 		if lives <= 0 {
-			fmt.Println(loseMessage) // Afficher le message de défaite
+			fmt.Println(loseMessage)
 			fmt.Printf("Perdu! Le mot était : %s\n", word)
 			break
 		}
 
-		// Vérifier si toutes les lettres ont été devinées
 		if string(wordRunes) == string(blanks) {
-			fmt.Println(victoryMessage) // Afficher le message de victoire
+			fmt.Println(victoryMessage)
 			fmt.Printf("Le mot était : %s\n", word)
 			break
 		}
-
-		// Afficher le nombre d'essais restants
-		fmt.Printf("%d essais restants.\n", lives)
 	}
+}
+
+func displayGameState(blanks []rune, guessedLetters map[rune]struct{}, lives int) {
+	fmt.Printf("Word: [%s], Lettres déjà proposées: %s\n", string(blanks), getGuessedLetters(guessedLetters))
+	fmt.Printf("%d essais restants.\n", lives)
+}
+
+func getUserInput() string {
+	fmt.Print("Entrez une lettre: ")
+	var input string
+	fmt.Scanln(&input)
+	return strings.ToLower(removeAccents(input))
+}
+
+func handleInput(input, word string, wordRunes, blanks []rune, guessedLetters map[rune]struct{}, lives *int) bool {
+	if len(input) == 0 {
+		*lives -= 3
+		fmt.Println("Sérieusement !?")
+	} else if len(input) > 1 {
+		if removeAccents(input) == removeAccents(word) {
+			fmt.Println("Vous avez gagné !")
+			return true
+		} else {
+			*lives -= 2
+			fmt.Println("Mot incorrect!")
+		}
+	} else {
+		letter := rune(input[0])
+		if _, exists := guessedLetters[letter]; exists {
+			fmt.Println("Cette lettre a déjà été proposée.")
+			return false
+		}
+		guessedLetters[letter] = struct{}{}
+		correctGuess := checkGuess(letter, wordRunes, blanks)
+		if !correctGuess {
+			*lives--
+			fmt.Println("Lettre incorrecte!")
+		}
+	}
+	return false
+}
+
+func checkGuess(letter rune, wordRunes []rune, blanks []rune) bool {
+	correctGuess := false
+	for i, wordLetter := range wordRunes {
+		if containsAccentMatch(letter, wordLetter) {
+			blanks[i] = wordLetter
+			correctGuess = true
+			fmt.Println("Bon choix")
+		}
+	}
+	return correctGuess
 }
 
 // Fonction pour lire les étapes du pendu depuis un fichier
