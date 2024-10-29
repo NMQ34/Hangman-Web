@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Pendu</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/script.js" defer></script>
+</head>
+<body>
+    <h1>Jeu du Pendu</h1>
+    <div id="game-container">
+        <p id="word">______</p>
+        <p id="lives">Vies restantes: 10</p>
+        <input type="text" id="guess-input" maxlength="1" placeholder="Entrez une lettre">
+        <button id="submit-button">Soumettre</button>
+        <p id="message"></p>
+    </div>
+    <script>
+        document.getElementById("submit-button").addEventListener("click", function() {
+            const input = document.getElementById("guess-input").value;
+            if (input) {
+                fetch("/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ text: input })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("word").innerText = data.word;
+                    document.getElementById("lives").innerText = "Vies restantes: " + data.lives;
+                    document.getElementById("message").innerText = data.message;
+
+                    // Réinitialiser le champ d'entrée
+                    document.getElementById("guess-input").value = '';
+                })
+                .catch(error => {
+                    console.error("Erreur:", error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

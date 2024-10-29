@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#game-container {
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    width: 30px;
+    text-align: center;
+}
+
+button {
+    margin-left: 10px;
+}
