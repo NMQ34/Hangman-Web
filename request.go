@@ -1,51 +1,45 @@
-package hangmanweb
+package main
 
 import (
-    "encoding/json"
-    "net/http"
-    hg "hangmanweb/hangman-classic/functions"
+	"html/template"
+	"net/http"
 )
 
-type RequestData struct {
-    Text string `json:"text"`
+type Range struct {
+	Letter string
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-    if r.Method == http.MethodGet {
-        http.ServeFile(w, r, "index.html")
-        return
-    }
+type DataForm struct {
+	Word           string
+	BoolValue      bool
+	NumberOfButton []Range
+}
 
-    if r.Method != http.MethodPost {
-        http.Error(w, "Seule la méthode POST est autorisée", http.StatusMethodNotAllowed)
-        return
-    }
+var Data DataForm
 
-    var data RequestData
-    err := json.NewDecoder(r.Body).Decode(&data)
-    if err != nil {
-        http.Error(w, "Erreur lors de la lecture de la requête", http.StatusBadRequest)
-        return
-    }
+func main() {
+	Alphabet()
+	Data.Word = "Bonjour"
+	Data.BoolValue = false
+	http.HandleFunc("/", MainPage)
+	http.HandleFunc("/input", Input)
+	http.ListenAndServe(":8080", nil)
+}
 
-    // Initialiser et démarrer le jeu
-    game := hg.NewGame("Word Selection/dictionnaire.txt")
-    game.Start(data.Text, w)
+func MainPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl.Execute(w, Data)
+}
 
-    // Créer la réponse JSON
-    response := map[string]interface{}{
-        "word":           string(game.Blanks),
-        "lives":          game.Lives,
-        "guessedLetters": hg.GetGuessedLetters(game.GuessedLetters),
-        "message":        "",
-    }
+func Input(w http.ResponseWriter, r *http.Request) {
+	Data.Word = r.FormValue("textearecup")
+	Data.BoolValue = true
 
-    if game.Lives <= 0 {
-        response["message"] = "Perdu! Le mot était : " + game.WordToGuess
-    } else if string(game.WordToGuess) == string(game.Blanks) {
-        response["message"] = "Vous avez gagné !";
-    }
+	MainPage(w, r)
+}
 
-    w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(response)
+func Alphabet() {
+	for i := 'a'; i != 'z'+1; i++ {
+		Data.NumberOfButton = append(Data.NumberOfButton, Range{Letter: string(i)})
+	}
 }
