@@ -22,95 +22,82 @@ var accentMap = map[rune][]rune{
 // Fonction pour démarrer le jeu
 func (g *Game) Start(inputText string, w http.ResponseWriter) {
 	// Démarrer la logique de jeu ici
-	hangmanStages, err := readHangmanStages("ASCIIDisplay/hangman.txt")
+	hangmanStages, err := readHangmanStages("texte/hangman.txt")
 	if err != nil {
-		handleError("Erreur lors de la lecture du fichier :", err)
+		g.handleError("Erreur lors de la lecture du fichier :", err)
 		return
 	}
 
-	loseMessage, err := readLoseMessage("ASCIIDisplay/lose.txt")
-	if err != nil {
-		handleError("Erreur lors de la lecture du fichier de lose :", err)
-		return
-	}
-
-	victoryMessage, err := readVictoryMessage("ASCIIDisplay/victory.txt")
-	if err != nil {
-		handleError("Erreur lors de la lecture du fichier de victoire :", err)
-		return
-	}
-
-	playGame(g, hangmanStages, loseMessage, victoryMessage)
+	g.playGame(hangmanStages)
 }
 
-func handleError(message string, err error) {
+func (g *Game) handleError(message string, err error) {
 	fmt.Println(message, err)
 }
 
-func playGame(game *Game, hangmanStages []string, loseMessage string, victoryMessage string) {
+func (g *Game) playGame(hangmanStages []string) string {
 	for {
-		displayGameState(game.Blanks, game.GuessedLetters, game.Lives)
-		input := getUserInput()
+		g.displayGameState(g.Player.Blanks, g.Player.GuessedLetters, g.Player.Lives)
+		input := g.getUserInput()
 
-		if handleInput(input, game) {
+		if g.handleInput(input) {
 			break
 		}
 
-		if game.Lives <= 0 {
-			fmt.Println(loseMessage)
-			fmt.Printf("Perdu! Le mot était : %s\n", game.WordToGuess)
+		if g.Player.Lives <= 0 {
+			fmt.Printf("Perdu! Le mot était : %s\n", g.Player.WordToGuess)
 			break
 		}
 
-		if string(game.WordToGuess) == string(game.Blanks) {
-			fmt.Println(victoryMessage)
-			fmt.Printf("Le mot était : %s\n", game.WordToGuess)
+		if string(g.Player.WordToGuess) == string(g.Player.Blanks) {
+			fmt.Printf("Le mot était : %s\n", g.Player.WordToGuess)
 			break
 		}
 	}
+	return ""
 }
 
-func displayGameState(blanks []rune, guessedLetters map[rune]struct{}, lives int) {
-	fmt.Printf("Word: [%s], Lettres déjà proposées: %s\n", string(blanks), GetGuessedLetters(guessedLetters))
+func (g *Game) displayGameState(blanks []rune, guessedLetters map[rune]struct{}, lives int) {
+	fmt.Printf("Word: [%s], Lettres déjà proposées: %s\n", string(blanks), g.GetGuessedLetters(guessedLetters))
 	fmt.Printf("%d essais restants.\n", lives)
 }
 
-func getUserInput() string {
+func (g *Game) getUserInput() string {
 	fmt.Print("Entrez une lettre: ")
 	var input string
 	fmt.Scanln(&input)
 	return strings.ToLower(removeAccents(input))
 }
 
-func handleInput(input string, game *Game) bool {
+func (g *Game) handleInput(input string) bool {
 	if len(input) == 0 {
-		game.Lives -= 3
+		g.Player.Lives -= 3
 		fmt.Println("Sérieusement !?")
 	} else if len(input) > 1 {
-		if removeAccents(input) == removeAccents(game.WordToGuess) {
+		if removeAccents(input) == removeAccents(g.Player.WordToGuess) {
 			fmt.Println("Vous avez gagné !")
 			return true
 		} else {
-			game.Lives -= 2
+			g.Player.Lives -= 2
 			fmt.Println("Mot incorrect!")
 		}
 	} else {
 		letter := rune(input[0])
-		if _, exists := game.GuessedLetters[letter]; exists {
+		if _, exists := g.Player.GuessedLetters[letter]; exists {
 			fmt.Println("Cette lettre a déjà été proposée.")
 			return false
 		}
-		game.GuessedLetters[letter] = struct{}{}
-		correctGuess := checkGuess(letter, []rune(game.WordToGuess), game.Blanks)
+		g.Player.GuessedLetters[letter] = struct{}{}
+		correctGuess := g.checkGuess(letter, []rune(g.Player.WordToGuess), g.Player.Blanks)
 		if !correctGuess {
-			game.Lives--
+			g.Player.Lives--
 			fmt.Println("Lettre incorrecte!")
 		}
 	}
 	return false
 }
 
-func checkGuess(letter rune, wordRunes []rune, blanks []rune) bool {
+func (g *Game) checkGuess(letter rune, wordRunes []rune, blanks []rune) bool {
 	correctGuess := false
 	for i, wordLetter := range wordRunes {
 		if containsAccentMatch(letter, wordLetter) {
@@ -134,26 +121,8 @@ func readHangmanStages(filename string) ([]string, error) {
 	return stages, nil
 }
 
-// Fonction pour lire le message de défaite depuis un fichier
-func readLoseMessage(filename string) (string, error) {
-	content, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return "", err
-	}
-	return string(content), nil
-}
-
-// Fonction pour lire le message de victoire depuis un fichier
-func readVictoryMessage(filename string) (string, error) {
-	content, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return "", err
-	}
-	return string(content), nil
-}
-
 // Fonction pour afficher les lettres déjà devinées sous forme de chaîne
-func GetGuessedLetters(m map[rune]struct{}) string {
+func (g *Game) GetGuessedLetters(m map[rune]struct{}) string {
 	letters := make([]string, 0, len(m))
 	for k := range m {
 		letters = append(letters, string(k))
@@ -179,7 +148,7 @@ func selectRandomWord(dictionaryWords []string) (string, []rune) {
 }
 
 // Initialiser les blancs
-func initializeBlanks(wordRunes []rune) []rune {
+func (g *Game) initializeBlanks(wordRunes []rune) []rune {
 	blanks := make([]rune, len(wordRunes))
 	for i := range blanks {
 		blanks[i] = '_'

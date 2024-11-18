@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -22,5 +22,23 @@
     {{range .NumberOfButton}}
         <input type="submit" value="{{ .Letter}}">
     {{end}}
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jeu du Pendu</title>
+</head>
+<body>
+    <h1>Bienvenue au jeu du Pendu !</h1>
+    <p>Mot à deviner: {{.Blanks}}</p>
+    <p>Vies restantes: {{.Lives}}</p>
+    <p>Lettres déjà devinées: {{.GuessedLetters}}</p>
+    <form method="post" action="/input">
+        <input type="text" name="textearecup" maxlength="1" placeholder="Entrez une lettre" required />
+        <button type="submit">Soumettre</button>
+    </form>
 </body>
 </html>
