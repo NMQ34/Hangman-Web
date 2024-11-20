@@ -22,8 +22,9 @@ func (s *Structure) web() {
 	http.Handle("/texte/", http.StripPrefix("/texte/", http.FileServer(http.Dir("texte"))))
 	http.Handle("/HtmlCss/", http.StripPrefix("/HtmlCss/", http.FileServer(http.Dir("HtmlCss"))))
 
-	http.HandleFunc("/home", s.home)
-	http.HandleFunc("/firstgame", s.fgame)
+	http.HandleFunc("/", s.home)
+	http.HandleFunc("/home.html", s.home)
+	http.HandleFunc("/game.html", s.hangman)
 	//http.HandleFunc("/secondgame", s.sgame)
 	// chargement du port utilisé
 	fmt.Println("http://localhost:8080/")
@@ -34,18 +35,18 @@ func (s *Structure) web() {
 // fonctions pour chaque page
 
 func (s *Structure) home(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles( /*je ne sais que mettre*/ ))
+	tmpl := template.Must(template.ParseFiles("HtmlCss/home.html"))
 	tmpl.Execute(w, nil)
 }
 
-func (s *Structure) fgame(w http.ResponseWriter, r *http.Request) {
+func (s *Structure) hangman(w http.ResponseWriter, r *http.Request) {
 	s.TheGame(w, r)
 }
 
 func (s *Structure) TheGame(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
-	tmpl := template.Must(template.ParseFiles( /*que mettre?*/ ))
+	tmpl := template.Must(template.ParseFiles("HtmlCss/game.html"))
 	letter := r.Form.Get("letter")
 	s.Letter = []rune(letter)
 	var check bool = false
