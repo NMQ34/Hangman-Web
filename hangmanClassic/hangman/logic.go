@@ -7,31 +7,48 @@ import (
 	"time"
 )
 
-func (s *Structure) Verif(letter rune) bool {
-	isHere := false
+// verifie si la lettre proposée l'a déjà été et rajout dans lettertested (renvoie true ou false)
+func (s *Structure) VerifLetter(letter []rune) bool {
+	isHere := true
 	for _, i := range s.LetterTested {
-		if i == string(letter) {
-			isHere = true
-			return false
+		if i == letter[0] {
+			isHere = false
 		}
 	}
-	if !isHere {
-		s.LetterTested = append(s.LetterTested, string(letter))
+	if isHere {
+		s.LetterTested += "," + string(letter)
 	}
-	return true
+	return isHere
 }
 
-func (s *Structure) VWord(letter rune) {
+// verifie si la lettre est dans le mot et le remplace dans le bon cas (renvoie true ou false)
+func (s *Structure) CheckLetter(letter []rune) bool {
 	isHere := false
-	for index, r := range s.SecretWord {
-		if rune(letter) == r {
-			s.Blanks[index] = s.Blanks[letter]
-			isHere = true
+	for _, l := range letter {
+		for index, r := range s.SecretWord {
+			if l == r {
+				s.Blanks[index] = r
+				isHere = true
+			}
 		}
 	}
-	if !isHere {
-		s.Lives -= 1
+	return isHere
+}
+
+// verifie si le mot est le bon
+func (s *Structure) CheckWord(letter []rune) bool {
+	var count1 int = len(s.SecretWord)
+	var count2 int = 0
+	for index, r := range s.SecretWord {
+		if letter[index] == r {
+			count2 += 1
+		}
 	}
+	isHere := false
+	if count1 == count2 {
+		isHere = true
+	}
+	return isHere
 }
 
 // Sélectionner un mot au hasard
@@ -56,6 +73,7 @@ func (s *Structure) InitializeBlanks() []rune {
 	return blanks
 }
 
+// verifie le nb de vie / verifie si le mot est trouvé
 func (s *Structure) CheckOut() {
 	if s.Lives == 0 {
 		s.Running = false

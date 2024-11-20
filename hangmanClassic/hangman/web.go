@@ -7,20 +7,24 @@ import (
 )
 
 type DataForm struct {
-	Motsecret    string
-	Motcachee    string
-	Usingletters string
-	Close        bool
-	Win          bool
-	Try          int
-	End          bool
+	Motsecret       string
+	Motcachee       string
+	LettresUtilisee string
+	Victoire        bool
+	Essaies         int
+	Echec           bool
 }
 
-func (g *Structure) web() {
+func (s *Structure) web() {
 	// chargement de tous les répertoirs présents dans "Hangman-Web"
-	http.Handle("/steady/", http.StripPrefix("/steady/", http.FileServer(http.Dir("steady"))))
+	http.Handle("/hangmanstage/", http.StripPrefix("/hangmanstage/", http.FileServer(http.Dir("hangmanstage"))))
+	http.Handle("/pictures/", http.StripPrefix("/pictures/", http.FileServer(http.Dir("pictures"))))
+	http.Handle("/texte/", http.StripPrefix("/texte/", http.FileServer(http.Dir("texte"))))
+	http.Handle("/HtmlCss/", http.StripPrefix("/HtmlCss/", http.FileServer(http.Dir("HtmlCss"))))
 
-	http.HandleFunc("/pageSpiderman", g.pageSpiderman)
+	http.HandleFunc("/home", s.home)
+	http.HandleFunc("/firstgame", s.fgame)
+	//http.HandleFunc("/secondgame", s.sgame)
 	// chargement du port utilisé
 	fmt.Println("http://localhost:8080/")
 	http.ListenAndServe(":8080", nil)
@@ -29,49 +33,42 @@ func (g *Structure) web() {
 
 // fonctions pour chaque page
 
-func (g *Structure) index(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles(g.pagesWeblist[0]))
+func (s *Structure) home(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles( /*je ne sais que mettre*/ ))
 	tmpl.Execute(w, nil)
 }
 
-func (g *Structure) pageHangman(w http.ResponseWriter, r *http.Request, indice int) {
+func (s *Structure) fgame(w http.ResponseWriter, r *http.Request) {
+	s.TheGame(w, r)
+}
 
-	r.ParseForm() // permet de récupérer les caractères envoyés par les pages html
-	tmpl := template.Must(template.ParseFiles(g.pagesWeblist[indice]))
-	letter := r.Form.Get("letter") // initialisation de la lettre actuelle
-	g.currentLetter = letter
+func (s *Structure) TheGame(w http.ResponseWriter, r *http.Request) {
 
-	if len(g.currentLetter) > 0 { // si l'information reçue n'est pas vide( donc est une lettre)
-		if g.currentLetter == "giveup" { // si l'information reçue est égale à "giveup", la partie est terminée car le joueur a abandonné
-			g.end = true
-		} else if g.verif(rune(g.currentLetter[0])) { // si la lettre n'a pas déja été utilisée : on l'ajoute aux lettres utilisées et on vérifie si elle est dans le mot
-			g.usingLetters += "  " + string(g.currentLetter[0])
-			g.letterTested = append(g.letterTested, string(g.currentLetter[0]))
-			g.inWord(rune(g.currentLetter[0]))
-		}
-	}
-	g.verifWin()     // on vérifie si le joueur a gagné la partie
-	if g.try >= 10 { // si le joueur a eu + de 10 essaies, la partie est terminée
-		g.end = true
-	}
-	if g.end { // si la partie est terminée et que l'utilisateur appuie sur le bouton "Menu" : On réinitialise tout et on relance la première page
-		if g.currentLetter == "back" {
-			g.closeWindow = true
-		}
-	}
-	web := DrawWeb{
-		Motsecret:    g.secretWord,
-		Motcachee:    g.hiddenWord,
-		Usingletters: g.usingLetters,
-		Close:        g.closeWindow,
-		Win:          g.win,
-		Try:          g.try,
-		End:          g.end,
-	}
-	tmpl.Execute(w, web) // permet d'envoyer les valeurs de la structure DrawWeb sur le html
+	r.ParseForm()
+	tmpl := template.Must(template.ParseFiles( /*que mettre?*/ ))
+	letter := r.Form.Get("letter")
+	s.Letter = []rune(letter)
+	var check bool = false
 
-	if g.closeWindow {
-		g.init()
-		return
+	if len(s.Letter) == 1 && s.CheckLetter(s.Letter) {
+		check = true
+	} else if len(s.Letter) > 1 && s.CheckWord(s.Letter) {
+		check = true
 	}
+
+	if !check {
+		s.Lives -= 1
+	}
+
+	s.CheckOut()
+
+	web := DataForm{
+		Motsecret:       string(s.SecretWord),
+		Motcachee:       string(s.Blanks),
+		LettresUtilisee: s.LetterTested,
+		Victoire:        s.Win,
+		Essaies:         s.Lives,
+		Echec:           s.Lose,
+	}
+	tmpl.Execute(w, web)
 }

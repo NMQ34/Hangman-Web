@@ -5,10 +5,11 @@ type Structure struct {
 	Running bool
 
 	//variables permettant la résolution du hangman
+	Letter       []rune
 	SecretWord   []rune
 	Blanks       []rune
 	Lives        int
-	LetterTested []string
+	LetterTested string
 
 	//variables servant de changer l'état du jeu
 	Win  bool
