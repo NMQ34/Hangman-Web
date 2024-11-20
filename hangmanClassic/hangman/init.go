@@ -1,40 +1,15 @@
 package hangman
 
-import (
-	"fmt"
-)
+func (s *Structure) init() {
 
-func (g *Game) Init() {
+	s.Running = true
 
-	// Initialisation des variables de l'engine
-	g.IsRunning = true
+	s.SecretWord = s.SelectRandomWord()
+	s.Blanks = s.InitializeBlanks()
+	s.Lives = 10
+	s.LetterTested = []string{}
 
-}
+	s.Win = false
+	s.Lose = false
 
-// Fonction pour créer une nouvelle instance de jeu
-func (g *Game) NewGame(dictionaryPath string) {
-	dictionaryWords, err := readDictionaryWords(dictionaryPath)
-	if err != nil {
-		fmt.Println("Erreur lors de la lecture du dictionnaire :", err)
-	}
-
-	word, _ := selectRandomWord(dictionaryWords)
-	return g.Player{
-		WordToGuess:    word,
-		Blanks:         g.initializeBlanks([]rune(word)),
-		Lives:          10,
-		GuessedLetters: make(map[rune]struct{}),
-		IsAlive:        true,
-	}
-}
-
-func (g *Game) InitPlayer() {
-
-	g.Player = Player{
-		WordToGuess:    word,
-		Blanks:         initializeBlanks([]rune(word)),
-		Lives:          10,
-		GuessedLetters: make(map[rune]struct{}),
-		IsAlive:        true,
-	}
 }
