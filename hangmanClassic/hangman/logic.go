@@ -92,9 +92,9 @@ func (s *Structure) CheckOut() {
 	var count2 int = 0
 
 	//ya una couillasse ici, ouais genre là au secoursdkchzodcnazpdcnadbajbajdbvekjvkejveffvevkevdbjkdekbnvdknevdn,k,nkvk,n
-	for _, i := range s.SecretWord {
+	for index, i := range s.SecretWord {
 
-		if s.Blanks[i] == rune(i) {
+		if s.Blanks[index] == rune(i) {
 			count2 += 1
 
 		}
