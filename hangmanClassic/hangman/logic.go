@@ -1,8 +1,8 @@
 package hangman
 
 import (
-	"io/ioutil"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 )
@@ -35,6 +35,14 @@ func (s *Structure) CheckLetter(letter []rune) bool {
 	return isHere
 }
 
+func (s *Structure) ConvertRinS(runes []rune) string {
+	var chaine string = ""
+	for _, i := range runes {
+		chaine += string(i)
+	}
+	return chaine
+}
+
 // verifie si le mot est le bon
 func (s *Structure) CheckWord(letter []rune) bool {
 	var count1 int = len(s.SecretWord)
@@ -54,7 +62,7 @@ func (s *Structure) CheckWord(letter []rune) bool {
 // Sélectionner un mot au hasard
 func (s *Structure) SelectRandomWord() []rune {
 	rand.Seed(time.Now().UnixNano())
-	content, err := ioutil.ReadFile("hangmanClassic/texte/dictionnaire.txt")
+	content, err := os.ReadFile("texte/dictionnaire.txt")
 	if err != nil {
 		return nil
 	}
@@ -79,13 +87,19 @@ func (s *Structure) CheckOut() {
 		s.Running = false
 		s.Lose = true
 	}
+
 	var count = len(s.SecretWord)
 	var count2 int = 0
+
+	//ya una couillasse ici, ouais genre là au secoursdkchzodcnazpdcnadbajbajdbvekjvkejveffvevkevdbjkdekbnvdknevdn,k,nkvk,n
 	for _, i := range s.SecretWord {
+
 		if s.Blanks[i] == rune(i) {
 			count2 += 1
+
 		}
 	}
+
 	if count2 == count {
 		s.Win = true
 	}

@@ -23,9 +23,11 @@ func (s *Structure) web() {
 	http.Handle("/HtmlCss/", http.StripPrefix("/HtmlCss/", http.FileServer(http.Dir("HtmlCss"))))
 
 	http.HandleFunc("/", s.home)
-	http.HandleFunc("/home.html", s.home)
-	http.HandleFunc("/game.html", s.hangman)
-	//http.HandleFunc("/secondgame", s.sgame)
+	http.HandleFunc("/home", s.home)
+	http.HandleFunc("/input", s.game)
+	http.HandleFunc("/lose", s.lose)
+	http.HandleFunc("/win", s.win)
+
 	// chargement du port utilisé
 	fmt.Println("http://localhost:8080/")
 	http.ListenAndServe(":8080", nil)
@@ -39,37 +41,53 @@ func (s *Structure) home(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, nil)
 }
 
-func (s *Structure) hangman(w http.ResponseWriter, r *http.Request) {
-	s.TheGame(w, r)
+func (s *Structure) lose(w http.ResponseWriter, r *http.Request) {
+
 }
 
-func (s *Structure) TheGame(w http.ResponseWriter, r *http.Request) {
+func (s *Structure) win(w http.ResponseWriter, r *http.Request) {
 
-	r.ParseForm()
-	tmpl := template.Must(template.ParseFiles("HtmlCss/game.html"))
-	letter := r.Form.Get("letter")
-	s.Letter = []rune(letter)
-	var check bool = false
+}
+func (s *Structure) game(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		letter := r.FormValue("letter")
+		s.Letter = []rune(letter)
+		var check bool = false
 
-	if len(s.Letter) == 1 && s.CheckLetter(s.Letter) {
-		check = true
-	} else if len(s.Letter) > 1 && s.CheckWord(s.Letter) {
-		check = true
+		if len(s.Letter) == 1 && s.CheckLetter(s.Letter) {
+			if s.VerifLetter(s.Letter) {
+				check = true
+			}
+		} else if len(s.Letter) > 1 && s.CheckWord(s.Letter) {
+			check = true
+		} else if len(s.Letter) == 0 {
+			check = true
+		}
+		if !check {
+			s.Lives -= 1
+		}
+		s.CheckOut()
+
+		web := DataForm{
+			Motsecret:       s.ConvertRinS(s.SecretWord),
+			Motcachee:       s.ConvertRinS(s.Blanks),
+			LettresUtilisee: s.LetterTested,
+			Victoire:        s.Win,
+			Essaies:         s.Lives,
+			Echec:           s.Lose,
+		}
+		tmpl := template.Must(template.ParseFiles("HtmlCss/game.html"))
+		tmpl.Execute(w, web)
+	} else {
+		web := DataForm{
+			Motsecret:       s.ConvertRinS(s.SecretWord),
+			Motcachee:       s.ConvertRinS(s.Blanks),
+			LettresUtilisee: s.LetterTested,
+			Victoire:        s.Win,
+			Essaies:         s.Lives,
+			Echec:           s.Lose,
+		}
+		tmpl := template.Must(template.ParseFiles("HtmlCss/game.html"))
+		tmpl.Execute(w, web)
 	}
-
-	if !check {
-		s.Lives -= 1
-	}
-
-	s.CheckOut()
-
-	web := DataForm{
-		Motsecret:       string(s.SecretWord),
-		Motcachee:       string(s.Blanks),
-		LettresUtilisee: s.LetterTested,
-		Victoire:        s.Win,
-		Essaies:         s.Lives,
-		Echec:           s.Lose,
-	}
-	tmpl.Execute(w, web)
 }

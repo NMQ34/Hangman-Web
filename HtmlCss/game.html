@@ -1,17 +1,120 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Jeu du Pendu</title>
-</head>
-<body>
+   <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title> HANGMAN </title>
+   </head>
+   <!--background="hangmanstage\Stage{{ .Essaies}}.png"-->
+    <body > 
     <h1>Bienvenue au jeu du Pendu !</h1>
     <p>Mot à deviner: {{.Motcachee}}</p>
     <p>Vies restantes: {{.Essaies}}</p>
     <p>Lettres déjà devinées: {{.LettresUtilisee}}</p>
-    <form method="get" action="/game">
+    <p>mot: {{.Motsecret}}</p>
+    <form action="/input" method="post">
+      <input type="text" name="letter" placeholder="Enter a letter">
+      <button type="submit">Submit</button>
+    </form>
+    <a href="/">Go to Game Page</a>
+   
+   </body>
+</html>
+
+    <!--<form method="post" action="/game">
         <input type="text" name="textearecup" maxlength="30" placeholder="Entrez une lettre" required />
         <button type="submit">Soumettre</button>
     </form>
-</body>
-</html>
+    <a href="game.html" class="button">Démarrer le Jeu</a>
+         <h1>Bienvenue dans le Jeu!</h1>
+         <p>Prêt à relever le défi et à commencer une nouvelle aventure? Cliquez sur le bouton ci-dessous pour commencer!</p>
+      {{if .End}}
+         {{if .Close}}
+         <script>
+         window.close();
+         </script>
+         {{end}}
+
+         {{if .Win}}         
+         <div class="game">
+            <h3>  Vous venez de gagner !!!  </h3>
+            <form action="/game">
+               <button type="submit" class="menu-btn" name="letter" value="back"> Menu </button>
+            </form>
+         </div>
+         {{else}}
+         <div class="game"> applique le style d'écriture JurassicPark dans le texte ci-dessous
+                        <h4>  Le mot etait tout simplement : {{ .Motsecret }} </h4>  affiche le mot secret si on a perdu ou si on a FF
+            <form action="/game">
+               <button type="submit" class="menu-btn" name="letter" value="back"> Menu </button>
+            </form>
+         </div>
+         {{end}}
+   {{else}}
+
+
+      <form action="/game">
+         <button type="submit" class="thebutton" name="letter" value="A"> A</button>
+         <button type="submit" class="thebutton" name="letter" value="B"> B</button>
+         <button type="submit" class="thebutton" name="letter" value="C"> C</button>
+         <button type="submit" class="thebutton" name="letter" value="D"> D</button>
+         <button type="submit" class="thebutton" name="letter" value="E"> E</button>
+         <button type="submit" class="thebutton" name="letter" value="F"> F</button>
+         <button type="submit" class="thebutton" name="letter" value="G"> G</button>
+         <button type="submit" class="thebutton" name="letter" value="H"> H</button>
+         <button type="submit" class="thebutton" name="letter" value="I"> I</button>
+         <button type="submit" class="thebutton" name="letter" value="J"> J</button>
+         <br>
+         <button type="submit" class="thebutton" name="letter" value="K"> K</button>
+         <button type="submit" class="thebutton" name="letter" value="L"> L</button>
+         <button type="submit" class="thebutton" name="letter" value="M"> M</button>
+         <button type="submit" class="thebutton" name="letter" value="N"> N</button>
+         <button type="submit" class="thebutton" name="letter" value="O"> O</button>
+         <button type="submit" class="thebutton" name="letter" value="P"> P</button>
+         <button type="submit" class="thebutton" name="letter" value="Q"> Q</button>
+         <button type="submit" class="thebutton" name="letter" value="R"> R</button>
+         <button type="submit" class="thebutton" name="letter" value="S"> S</button>
+         <button type="submit" class="thebutton" name="letter" value="T"> T</button>
+         <button type="submit" class="thebutton" name="letter" value="U"> U</button>
+         <button type="submit" class="thebutton" name="letter" value="V"> V</button>
+         <button type="submit" class="thebutton" name="letter" value="W"> W</button>
+         <button type="submit" class="thebutton" name="letter" value="X"> X</button>
+         <button type="submit" class="thebutton" name="letter" value="Y"> Y</button>
+         <button type="submit" class="thebutton" name="letter" value="Z"> Z</button>
+
+   {{end}}
+
+   <div class="game"> 
+      <h5>  <img src="../hangman/hang{{ .Try }}.PNG" height="14%" width="7%">  </h5> 
+      <h5>  &ensp; {{ .Usingletters }} &ensp; </h5>
+   </div> 
+
+   {{if .End}}
+   {{else}}
+   <form action="/game">
+      <button type="submit" class="menuback" name="letter" value="giveup"> FF </button>
+   </form>
+   {{end}} -->
+
+
+ 
+
+
+
+<!--
+<p>hello</p>
+    <p>pourquoi pas</p>
+    <form action="/game" method="post">
+        <input type="text" name="textearecup" laceholder="phrase">
+    </form>
+
+    {{if .BoolValue}}
+        <p>La valeur est vrai</p>
+    {{else}}
+        <p>la valeur est fausse</p>
+    {{end}}
+
+    {{range .NumberOfButton}}
+        <input type="submit" value="{{ .Letter}}">
+    {{end}}
+-->
