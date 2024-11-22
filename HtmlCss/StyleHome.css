@@ -20,7 +20,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('/utiles/Home.png'); 
+    background-image: url('pictures/menu.png'); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -54,7 +54,7 @@ body {
 }
 .block {
     padding: 20px;
-    background-image: url('/utiles/Home.png');
+    background-image: url('pictures/menu.png');
     background-size: auto;
     background-position: center;
     background-repeat: no-repeat;
