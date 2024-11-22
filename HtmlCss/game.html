@@ -3,19 +3,68 @@
    <head>
          <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="HtmlCss/StyleGame.css" type="text/css">
          <title> HANGMAN </title>
    </head>
-   <!--background="hangmanstage\Stage{{ .Essaies}}.png"-->
-    <body > 
+   
+    <body background="hangmanstage\Stage{{ .Essaies}}.png"> 
     <h1>Bienvenue au jeu du Pendu !</h1>
     <p>Mot à deviner: {{.Motcachee}}</p>
     <p>Vies restantes: {{.Essaies}}</p>
     <p>Lettres déjà devinées: {{.LettresUtilisee}}</p>
     <p>mot: {{.Motsecret}}</p>
-    <form action="/input" method="post">
-      <input type="text" name="letter" placeholder="Enter a letter">
-      <button type="submit">Submit</button>
-    </form>
+    
+    
+    
+    <form action="/input" id="keyboard" method="post">
+      <input type="text" id="inputField" name="letter" disabled>
+      <button type="submit">Soumettre</button>
+  </form>
+
+
+
+      <div class="keyboard1">
+          <button class="bouton" id="A"  value="a" onclick="addLetter('a')"></button>
+          <button class="bouton" id="B"  value="b" onclick="addLetter('b')"></button>
+          <button class="bouton" id="C"  value="c" onclick="addLetter('c')"></button>
+          <button class="bouton" id="D"  value="d" onclick="addLetter('d')"></button>
+          <button class="bouton" id="E"  value="e" onclick="addLetter('e')"></button>
+          <button class="bouton" id="F"  value="f" onclick="addLetter('f')"></button>
+          <button class="bouton" id="G"  value="g" onclick="addLetter('g')"></button>
+          <button class="bouton" id="H"  value="h" onclick="addLetter('h')"></button>
+          <button class="bouton" id="I"  value="i" onclick="addLetter('i')"></button>
+          <button class="bouton" id="J"  value="j" onclick="addLetter('j')"></button>
+          <button class="bouton" id="K"  value="k" onclick="addLetter('k')"></button>
+          <button class="bouton" id="L"  value="l" onclick="addLetter('l')"></button>
+      </div>
+      <div class="keyboard2">
+          <button class="bouton" id="M"  value="m" onclick="addLetter('m')"></button>
+          <button class="bouton" id="N"  value="n" onclick="addLetter('n')"></button>
+          <button class="bouton" id="O"  value="o" onclick="addLetter('o')"></button>
+          <button class="bouton" id="P"  value="p" onclick="addLetter('p')"></button>
+          <button class="bouton" id="Q"  value="q" onclick="addLetter('q')"></button>
+          <button class="bouton" id="R"  value="r" onclick="addLetter('r')"></button>
+          <button class="bouton" id="S"  value="s" onclick="addLetter('s')"></button>
+          <button class="bouton" id="T"  value="t" onclick="addLetter('t')"></button>
+          <button class="bouton" id="U"  value="u" onclick="addLetter('u')"></button>
+      </div>
+      <div class="keyboard3">
+          <button class="bouton" id="V"  value="v" onclick="addLetter('v')"></button>
+          <button class="bouton" id="W"  value="w" onclick="addLetter('w')"></button>
+          <button class="bouton" id="X"  value="x" onclick="addLetter('x')"></button>
+          <button class="bouton" id="Y"  value="y" onclick="addLetter('y')"></button>
+          <button class="bouton" id="Z"  value="z" onclick="addLetter('z')"></button>
+      </div>
+
+      <script>    
+          // Fonction pour ajouter une lettre au champ de saisie
+          function addLetter(letter) {
+            const inputField = document.getElementById('inputField');
+            inputField.value += letter;
+          }
+        </script>
+
+        
     <a href="/">Go to Game Page</a>
    
    </body>

@@ -1,11 +1,30 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lose page</title>
+    <title>Jeu du Pendu - Accueil</title>
+    <link rel="stylesheet" href="/css/StyleFin.css" type="text/css">
 </head>
 <body>
-    <h1>Voici donc le game over pcq t'es une merde</h1>
-    
+    <div class="container">
+        <img src="/utiles/etat10.png" class="pendu">
+        <div class="block">
+            <header class="container">
+                <h1>Oh Non vous avez perdu !!!</h1>
+                <h2 id="motadeviner">Le mot était : {{.Mot}}</h2>
+                <h2 id="essai">Nombre d'essais : {{.Essai}}</h2>
+                <h2 id="Level">niveaux :{{.Level}}</h2>
+            </header>
+            <div class="boutonDeMenu">
+                <form action="/Home" class="boutonDeMenu">
+                    <button class="bouton-menu" id="maison" type="submit" value="restart" name="bouton-menu"></button>
+                </form>
+                <form action="/hangman" class="boutonDeMenu">
+                    <button class="bouton-menu" id="replay" type="submit" value="restart" name="bouton-menu" ></button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

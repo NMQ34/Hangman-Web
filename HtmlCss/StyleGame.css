@@ -1,0 +1,217 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: cursive;
+    
+}
+p{
+    color: red;
+}
+.information {
+    background-color: black;
+    width: 353px;
+    text-align: center;
+}
+html {
+    height: 100vh;
+    background-image: url('/utiles/Background.png'); 
+    background-size: cover; 
+    background-position: center; 
+    position: fixed;
+}
+.Head {
+    background-color: rosybrown;
+    text-align: center;
+    width: 1850px;
+}
+.info {
+    background-color: grey;
+}
+.dev {
+    width: 353px;
+    position: relative;
+    background-color: #4CAF50;
+    z-index: 2;
+   
+   
+}
+
+.start-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.boutonDeMenu {
+    position: relative;
+    width: 110px;
+    left: 1730px;
+    bottom: 165px;
+    z-index: 2;
+}
+.bouton-menu {
+    border-width: 0px;
+    background-color: transparent;
+    padding: 55px;
+    border-radius: 100px;
+    background-size: 100px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s;
+    cursor: pointer;
+    z-index: 2;
+
+}
+.bouton-menu:hover {
+    opacity: 0.5;
+}
+#replay {
+    background-image: url('/utiles/bouton_Restart.png')
+}
+#maison {
+    background-image: url('/utiles/bouton_home.png');
+}
+.image-container {
+    text-align: center; 
+    position: relative;
+    bottom: 500px;
+    z-index: 1;
+}
+
+.pendu-image {
+    max-width: 100%; 
+    height: 505px; 
+    display: block; 
+    margin: 0 auto; 
+    padding: 75px;
+    z-index: 1;
+}
+
+.bouton {
+    border-width: 0px;
+    background-color: transparent;
+    padding: 65px;
+    border-radius: 100px;
+    background-size: 150px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s;
+    cursor: pointer;
+}
+.bouton:hover {
+    opacity: 0.5;
+}
+.clavier {
+    position: relative;
+    bottom: 650px;
+    z-index: 2;
+}
+.clavier1 {
+    width: 1700px;
+    position: relative; 
+    left: 100px;
+    top:150px;
+    z-index: 2;
+ }
+ .clavier2 {
+    width: 1300px;
+    position: relative;
+    left: 300px;
+    top:150px;
+    z-index: 2;
+ }
+ .clavier3 {
+    width: 800px;
+    position: relative;
+    left: 570px;
+    top:150px;
+    z-index: 2;
+ }
+
+
+
+#A {
+    background-image: url('/pictures/boutonA-removebg-preview.png');
+}
+#B {
+    background-image: url('/pictures/boutonB-removebg-preview.png');
+}
+#C {
+    background-image: url('/pictures/boutonC-removebg-preview.png');
+}
+#D {
+    background-image: url('/pictures/boutonD-removebg-preview.png');
+}
+#E {
+    background-image: url('/pictures/boutonE-removebg-preview.png');
+}
+#F {
+    background-image: url('/pictures/boutonF-removebg-preview.png');
+}
+#G {
+    background-image: url('/pictures/boutonG-removebg-preview.png');
+}
+#H {
+    background-image: url('/pictures/boutonH-removebg-preview.png');
+}
+#I {
+    background-image: url('/pictures/boutonI-removebg-preview.png');
+}
+#J {
+    background-image: url('/pictures/boutonJ-removebg-preview.png');
+}
+#K {
+    background-image: url('/pictures/boutonK-removebg-preview.png');
+}
+#L {
+    background-image: url('/pictures/boutonL-removebg-preview.png');
+}
+#M {
+    background-image: url('/pictures/boutonM-removebg-preview.png');
+}
+#N {
+    background-image: url('/pictures/boutonN-removebg-preview.png');
+}
+#O {
+    background-image: url('/pictures/boutonO-removebg-preview.png');
+}
+#P {
+    background-image: url('/pictures/boutonP-removebg-preview.png');
+}
+#Q {
+    background-image: url('/pictures/boutonQ-removebg-preview.png');
+}
+#R {
+    background-image: url('/pictures/boutonR-removebg-preview.png');
+}
+#S {
+    background-image: url('/pictures/boutonS-removebg-preview.png');
+}
+#T {
+    background-image: url('/pictures/boutonT-removebg-preview.png');
+}
+#U {
+    background-image: url('/pictures/boutonU-removebg-preview.png');
+}
+#V {
+    background-image: url('/pictures/boutonV-removebg-preview.png');
+}
+#W {
+    background-image: url('/pictures/boutonW-removebg-preview.png');
+}
+#X {
+    background-image: url('/pictures/boutonX-removebg-preview.png');
+}
+#Y {
+    background-image: url('/pictures/boutonY-removebg-preview.png');
+}
+#Z {
+    background-image: url('/pictures/boutonZ-removebg-preview.png');
+}
+
+
