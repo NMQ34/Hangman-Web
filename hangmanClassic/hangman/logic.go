@@ -9,14 +9,16 @@ import (
 
 // verifie si la lettre proposée l'a déjà été et rajout dans lettertested (renvoie true ou false)
 func (s *Structure) VerifLetter(letter []rune) bool {
-	isHere := true
+	isHere := true //lettre pas dans lkes lettre testée
 	for _, i := range s.LetterTested {
 		if i == letter[0] {
-			isHere = false
+			isHere = false //lettre dans les lettres testée
 		}
 	}
-	if isHere {
-		s.LetterTested += "," + string(letter)
+	if isHere && len(s.LetterTested) == 0 { // si lettre pas dans les lettres testée
+		s.LetterTested += string(letter)
+	} else if isHere {
+		s.LetterTested += ", " + string(letter)
 	}
 	return isHere
 }
@@ -45,16 +47,18 @@ func (s *Structure) ConvertRinS(runes []rune) string {
 
 // verifie si le mot est le bon
 func (s *Structure) CheckWord(letter []rune) bool {
-	var count1 int = len(s.SecretWord)
-	var count2 int = 0
-	for index, r := range s.SecretWord {
-		if letter[index] == r {
-			count2 += 1
+	var isHere bool = true
+	for _, l := range letter {
+		if !s.CheckLetter([]rune{l}) {
+			isHere = false
 		}
+
 	}
-	isHere := false
-	if count1 == count2 {
-		isHere = true
+
+	if isHere == true {
+		s.Win = true
+		s.Running = false
+
 	}
 	return isHere
 }
@@ -68,7 +72,8 @@ func (s *Structure) SelectRandomWord() []rune {
 	}
 	ListOfWord := strings.Split(string(content), "\n")
 	randomIndex := rand.Intn(len(ListOfWord))
-	word := ListOfWord[randomIndex]
+	str := ListOfWord[randomIndex]
+	word := str[:len(str)-1]
 	return []rune(word)
 }
 
@@ -102,5 +107,6 @@ func (s *Structure) CheckOut() {
 
 	if count2 == count {
 		s.Win = true
+		s.Running = false
 	}
 }
