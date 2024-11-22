@@ -1,13 +1,60 @@
-/* style.css */
+/* style.css 
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+}*/
 h1 {
     font-size: 40px;
 }
+.boutonP {
+    border-radius: 100px;
+    /*border-width: 0px;
+    background-color: transparent;
+    padding: 75px;
+    
+    background-size: 140px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s;
+    cursor: pointer;
+    z-index: 2;*/
+
+
+}
+.boutonE {
+    border-radius: 100px;
+    /*border-width: 0px;
+    background-color: transparent;
+    padding: 75px;
+    
+    background-size: 140px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s;
+    cursor: pointer;
+    z-index: 2;*/
+
+}
+.Cadre{
+    background-image: url('pictures/cadre-removebg-preview.webp');
+    position: relative;
+   
+}
+.Info{
+    position: relative;
+}
+.Play{
+    /*background-image: url('/utiles/bouton_Restart.png');
+    */position: relative;
+}
+.Exit{
+    /*background-image: url('/utiles/bouton_Restart.png');
+    */position: relative;
+    
+}
+/*
 h2 {
     color: blue;
     font-family: cursive;
@@ -24,21 +71,10 @@ body {
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
-}
+}*/
 
-.bouton-level {
-    border-width: 0px;
-    background-color: transparent;
-    padding: 75px;
-    border-radius: 100px;
-    background-size: 140px;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 0.5s;
-    cursor: pointer;
-    z-index: 2;
 
-}
+/*
 .bouton-level:hover {
     opacity: 0.5;
 }
@@ -67,3 +103,4 @@ body {
    
 
 }
+*/

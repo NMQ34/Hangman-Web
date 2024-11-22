@@ -5,17 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="HtmlCss/StyleHome.css" type="text/css">
     <title>Hangman</title>
+    <style>
+        /* Style général pour le corps de la page */
+        body {
+            background-image: url('menu.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Style du titre */
+        h1 {
+            color: blue; /* Couleur bleue pour le titre */
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 20px;
+        }
+
+        /* Cadre décoratif */
+        .Cadre {
+            background-image: url('cadre-removebg-preview.webp');
+            display: flex;
+            flex-direction: column; /* Empiler les éléments à l'intérieur du cadre */
+            justify-content: center; /* Centrer verticalement */
+            align-items: center; /* Centrer horizontalement */
+            width: 80%; /* Largeur du cadre */
+            max-width: 800px; /* Largeur maximale */
+            margin-top: 30px; /* Espacement depuis le titre */
+            padding: 20px; /* Espace interne */
+            text-align: center; /* Centrer le contenu textuel */
+            min-height: 300px; /* Hauteur minimale pour éviter que le cadre soit trop petit */
+        }
+
+        /* Style pour l'info à l'intérieur du cadre */
+        .Info {
+            font-size: 1.2em;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.6); /* Fond légèrement noir avec transparence */
+            border-radius: 10px; /* Bord arrondi */
+            color: white;
+            max-width: 90%; /* Largeur du texte dans le cadre */
+        }
+
+        /* Formulaires et boutons */
+        .Play, .Exit {
+            display: flex;
+            justify-content: flex-end; /* Aligner les boutons à droite */
+            margin-top: 20px;
+        }
+
+        /* Style des boutons */
+        .boutonP, .boutonE {
+            background-size: cover;
+            background-position: center;
+            width: 70px;
+            height: 70px;
+            background-image: url('—Pngtree—fault style button arrow fault_6644490.png');
+            border: none;
+            font-size: 1.2em;
+            margin-left: 10px;
+        }
+
+        .boutonP:hover, .boutonE:hover {
+            background-color: #45a049;
+        }
+
+        /* Texte dans les boutons */
+        .boutonP:after, .boutonE:after {
+            content: attr(data-text);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1em;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Texte en bas de la page */
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
 </head>
-<body background="pictures/menu.png">
-    <!--<h1>Bienvenue dans le Jeu!</h1>
-    <p>Prêt à relever le défi et à commencer une nouvelle aventure? Cliquez sur le bouton ci-dessous pour commencer!</p>-->
-    <a href="input" class="playgame">Démarrer le Jeu</a>
-    <p>Explorez des mondes fantastiques, résolvez des énigmes et défiez vos amis dans ce jeu palpitant. Que la compétition commence!</p>
-        <div class="boutonDeMenu">
-            <form action="/input" class="boutonDeMenu">
-                <button class="bouton-menu" id="maison" type="submit" value="restart" name="bouton-menu">zertyuioiuytrrtyu</button>
-            </form>
-        </div>
-    
+
+<body>
+    <!-- Titre -->
+    <h1>Bienvenue dans le Jeu!</h1>
+
+    <!-- Cadre contenant l'info et les boutons -->
+    <div class="Cadre">
+        <!-- Information à l'intérieur du cadre -->
+        <p class="Info">
+            Prêt à relever le défi et à commencer une nouvelle aventure? Cliquez sur le bouton ci-dessous pour commencer!<br>
+            Explorez des mondes fantastiques, résolvez des énigmes et défiez vos amis dans ce jeu palpitant.<br>
+            Que la compétition commence!
+        </p>
+
+        <!-- Formulaire pour commencer le jeu -->
+        <form action="/input" class="Play">
+            <button class="boutonP" type="submit" data-text="Commencer"></button>
+        </form>
+
+        <!-- Formulaire pour quitter le jeu -->
+        <form action="/lose" class="Exit">
+            <button class="boutonE" type="submit" data-text="Quitter"></button>
+        </form>
+    </div>
+
+    <!-- Information supplémentaire en bas -->
+    <p>Ynov campus <br> MONTPELLIER</p>
+
 </body>
+
 </html>
