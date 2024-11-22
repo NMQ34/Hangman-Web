@@ -67,15 +67,13 @@ func (s *Structure) game(w http.ResponseWriter, r *http.Request) {
 
 			if s.CheckLetter(s.Letter) {
 				fmt.Println("1")
-				s.VerifLetter(s.Letter)
 				check = true
 			}
 
 		} else if len(s.Letter) == len(s.SecretWord) {
 			fmt.Println("2")
-			s.CheckWord(s.Letter)
-			check = true
 
+			check = s.CheckWord(s.Letter)
 		} else if len(s.Letter) == 0 {
 			fmt.Println("3")
 			check = true

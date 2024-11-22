@@ -8,7 +8,7 @@ import (
 )
 
 // verifie si la lettre proposée l'a déjà été et rajout dans lettertested (renvoie true ou false)
-func (s *Structure) VerifLetter(letter []rune) bool {
+func (s *Structure) VerifLetter(letter []rune) bool { //-------------------------true =
 	isHere := true //lettre pas dans lkes lettre testée
 	for _, i := range s.LetterTested {
 		if i == letter[0] {
@@ -34,6 +34,9 @@ func (s *Structure) CheckLetter(letter []rune) bool {
 			}
 		}
 	}
+	if !s.VerifLetter(letter){
+		isHere = true
+	}
 	return isHere
 }
 
@@ -55,9 +58,8 @@ func (s *Structure) CheckWord(letter []rune) bool {
 
 	}
 
-	if isHere == true {
+	if isHere {
 		s.Win = true
-		s.Running = false
 
 	}
 	return isHere
@@ -107,6 +109,5 @@ func (s *Structure) CheckOut() {
 
 	if count2 == count {
 		s.Win = true
-		s.Running = false
 	}
 }
