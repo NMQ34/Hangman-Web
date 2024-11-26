@@ -12,15 +12,14 @@
         <div class="block">
             <header class="container">
                 <h1>Oh Non vous avez perdu !!!</h1>
-                <h2 id="motadeviner">Le mot était : {{.Mot}}</h2>
-                <h2 id="essai">Nombre d'essais : {{.Essai}}</h2>
-                <h2 id="Level">niveaux :{{.Level}}</h2>
+                <h2 id="motadeviner">Le mot était : {{.Motcachee}}</h2>
+                <h2 id="essai">Nombre d'essais : {{.Essaies}}</h2>
             </header>
             <div class="boutonDeMenu">
                 <form action="/Home" class="boutonDeMenu">
                     <button class="bouton-menu" id="maison" type="submit" value="restart" name="bouton-menu"></button>
                 </form>
-                <form action="/hangman" class="boutonDeMenu">
+                <form action="/Play" class="boutonDeMenu">
                     <button class="bouton-menu" id="replay" type="submit" value="restart" name="bouton-menu" ></button>
                 </form>
             </div>

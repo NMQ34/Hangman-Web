@@ -23,10 +23,10 @@ func (s *Structure) web() {
 	http.Handle("/HtmlCss/", http.StripPrefix("/HtmlCss/", http.FileServer(http.Dir("HtmlCss"))))
 
 	http.HandleFunc("/", s.home)
-	http.HandleFunc("/home", s.home)
-	http.HandleFunc("/input", s.game)
-	http.HandleFunc("/lose", s.lose)
-	http.HandleFunc("/win", s.win)
+	http.HandleFunc("/Home", s.home)
+	http.HandleFunc("/Play", s.play)
+	http.HandleFunc("/Lose", s.lose)
+	http.HandleFunc("/Win", s.win)
 
 	// chargement du port utilisé
 	fmt.Println("http://localhost:8080/")
@@ -48,7 +48,7 @@ func (s *Structure) lose(w http.ResponseWriter, r *http.Request) {
 func (s *Structure) win(w http.ResponseWriter, r *http.Request) {
 
 }
-func (s *Structure) game(w http.ResponseWriter, r *http.Request) {
+func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		r.ParseForm()
@@ -81,7 +81,7 @@ func (s *Structure) game(w http.ResponseWriter, r *http.Request) {
 			Echec:           s.Lose,
 		}
 
-		tmpl := template.Must(template.ParseFiles("HtmlCss/game.html"))
+		tmpl := template.Must(template.ParseFiles("HtmlCss/Play.html"))
 		tmpl.Execute(w, web)
 	} else {
 		web := DataForm{
@@ -93,7 +93,7 @@ func (s *Structure) game(w http.ResponseWriter, r *http.Request) {
 			Echec:           s.Lose,
 		}
 
-		tmpl := template.Must(template.ParseFiles("HtmlCss/game.html"))
+		tmpl := template.Must(template.ParseFiles("HtmlCss/Play.html"))
 		tmpl.Execute(w, web)
 	}
 }

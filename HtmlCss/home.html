@@ -6,104 +6,108 @@
     <link rel="stylesheet" href="HtmlCss/StyleHome.css" type="text/css">
     <title>Hangman</title>
     <style>
-        /* Style général pour le corps de la page */
-        body {
-            background-image: url('menu.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
+    /* Style général pour le corps de la page */
+    body {
+        background-image: url('pictures/menu.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
 
-        /* Style du titre */
-        h1 {
-            color: blue; /* Couleur bleue pour le titre */
-            text-align: center;
-            font-size: 2.5em;
-            margin-top: 20px;
-        }
+/* Style du titre */
+h1 {
+    color: blue; /* Couleur bleue pour le titre */
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 20px;
+}
 
-        /* Cadre décoratif */
-        .Cadre {
-            background-image: url('cadre-removebg-preview.webp');
-            display: flex;
-            flex-direction: column; /* Empiler les éléments à l'intérieur du cadre */
-            justify-content: center; /* Centrer verticalement */
-            align-items: center; /* Centrer horizontalement */
-            width: 80%; /* Largeur du cadre */
-            max-width: 800px; /* Largeur maximale */
-            margin-top: 30px; /* Espacement depuis le titre */
-            padding: 20px; /* Espace interne */
-            text-align: center; /* Centrer le contenu textuel */
-            min-height: 300px; /* Hauteur minimale pour éviter que le cadre soit trop petit */
-        }
+/* Cadre décoratif */
+.Cadre {
+    background-image: url('pictures/cadre-removebg-preview.webp');
+    display: flex;
+    flex-direction: column; /* Empiler les éléments à l'intérieur du cadre */
+    justify-content: center; /* Centrer verticalement */
+    align-items: center; /* Centrer horizontalement */
+    width: 80%; /* Largeur du cadre */
+    max-width: 800px; /* Largeur maximale */
+    margin-top: 30px; /* Espacement depuis le titre */
+    padding: 20px; /* Espace interne */
+    text-align: center; /* Centrer le contenu textuel */
+    min-height: 300px; /* Hauteur minimale pour éviter que le cadre soit trop petit */
+}
 
-        /* Style pour l'info à l'intérieur du cadre */
-        .Info {
-            font-size: 1.2em;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.6); /* Fond légèrement noir avec transparence */
-            border-radius: 10px; /* Bord arrondi */
-            color: white;
-            max-width: 90%; /* Largeur du texte dans le cadre */
-        }
+/* Style pour l'info à l'intérieur du cadre */
+.Info {
+    font-size: 1.2em;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond légèrement noir avec transparence */
+    border-radius: 10px; /* Bord arrondi */
+    color: white;
+    max-width: 90%; /* Largeur du texte dans le cadre */
+    margin-top: 20px; /* Espacement depuis le haut du cadre */
+}
 
-        /* Formulaires et boutons */
-        .Play, .Exit {
-            display: flex;
-            justify-content: flex-end; /* Aligner les boutons à droite */
-            margin-top: 20px;
-        }
+/* Formulaires et boutons */
+.Play {
+    display: flex;
+    justify-content: flex-end; /* Aligner les boutons à droite */
+    margin-top: 20px;
+    position: absolute; /* Pour placer les boutons en dehors du flux normal du document */
+    right: 20px; /* Espacement de 20px à droite */
+    top: 50%; /* Centrer verticalement sur la page */
+    transform: translateY(-50%); /* Ajustement pour bien centrer */
+}
 
-        /* Style des boutons */
-        .boutonP, .boutonE {
-            background-size: cover;
-            background-position: center;
-            width: 70px;
-            height: 70px;
-            background-image: url('—Pngtree—fault style button arrow fault_6644490.png');
-            border: none;
-            font-size: 1.2em;
-            margin-left: 10px;
-        }
+/* Style des boutons */
+.boutonP, .boutonE {
+    background-size: cover;
+    background-position: center;
+    width: 70px;
+    height: 70px;
+    background-image: url('pictures/—Pngtree—fault style button arrow fault_6644490.png');
+    border: none;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
 
-        .boutonP:hover, .boutonE:hover {
-            background-color: #45a049;
-        }
+.boutonP:hover, .boutonE:hover {
+    background-color: #45a049;
+}
 
-        /* Texte dans les boutons */
-        .boutonP:after, .boutonE:after {
-            content: attr(data-text);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1em;
-            color: white;
-            font-weight: bold;
-        }
+/* Texte dans les boutons */
+.boutonP:after, .boutonE:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em;
+    color: white;
+    font-weight: bold;
+}
 
-        /* Texte en bas de la page */
-        p {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-    </style>
+/* Texte en bas de la page 
+p {
+    text-align: center;
+    margin-top: 20px;
+}*/
+</style>
 </head>
 
 <body>
     <!-- Titre -->
     <h1>Bienvenue dans le Jeu!</h1>
-
+   
     <!-- Cadre contenant l'info et les boutons -->
     <div class="Cadre">
         <!-- Information à l'intérieur du cadre -->
@@ -114,18 +118,18 @@
         </p>
 
         <!-- Formulaire pour commencer le jeu -->
-        <form action="/input" class="Play">
-            <button class="boutonP" type="submit" data-text="Commencer"></button>
+        <form action="/Play" class="Play">
+            <button class="buttonPlay" type="submit" data-text="Commencer"></button>
         </form>
 
         <!-- Formulaire pour quitter le jeu -->
-        <form action="/lose" class="Exit">
-            <button class="boutonE" type="submit" data-text="Quitter"></button>
+        <form action="/Lose" class="Exit">
+            <button class="buttonExit" type="submit" data-text="Quitter"></button>
         </form>
     </div>
 
     <!-- Information supplémentaire en bas -->
-    <p>Ynov campus <br> MONTPELLIER</p>
+    <p class="Ynov">Ynov campus <br> MONTPELLIER</p>
 
 </body>
 

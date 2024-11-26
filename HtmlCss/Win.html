@@ -9,19 +9,18 @@
 </head>
 <body>
     <div class="container">
-        <img src="/utiles/etat10.png" class="pendu">
+        <img src="picture/win.png" class="pendu">
         <div class="block">
             <header class="container">
                 <h1>Félicitations vous avez gagnez !!!</h1>
-                <h2 id="motadeviner">Le mot était bien  : {{.Mot}}</h2>
-                <h2 id="essai">Nombre d'essais : {{.Essai}}</h2>
-                <h2 id="Level">niveaux :{{.Level}}</h2>
+                <h2 id="motadeviner">Le mot était bien  : {{.Motcachee}}</h2>
+                <h2 id="essai">Nombre d'essais : {{.Essaies}}</h2>
             </header>
             <div class="boutonDeMenu">
                 <form action="/Home" class="boutonDeMenu">
                     <button class="bouton-menu" id="maison" type="submit" value="restart" name="bouton-menu"></button>
                 </form>
-                <form action="/hangman" class="boutonDeMenu">
+                <form action="/Play" class="boutonDeMenu">
                     <button class="bouton-menu" id="replay" type="submit" value="restart" name="bouton-menu" ></button>
                 </form>
             </div>

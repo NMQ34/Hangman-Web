@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+   <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="HtmlCss/StyleGame.css" type="text/css">
+         <script src="/js/script.js"></script>
+         <title> HANGMAN </title>
+        <style>
+            body {
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 0;
+              height: 100vh;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+            }
+              p{
+                  color: rgb(225, 20, 20);
+              }
+              h1 {
+                margin: 3;
+                height: 100vh;
+                display: flex;
+                justify-content: center; /* Centre horizontalement */
+                align-items: flex-start; /* Aligne le titre en haut de la page */
+                font-family: Arial, sans-serif;
+              }
+              .ynov {
+                  height: 100vh;
+                  background-image: url('/utiles/Background.png'); 
+                  background-size: cover; 
+                  background-position: center; 
+                  position: fixed;
+              }
+              .inputWord {
+                  background-color: rosybrown;
+                  text-align: center;
+                  width: 1850px;
+              }
+              .back {
+                  background-color: grey;
+              }
+              .Motcachee {
+                  width: 353px;
+                  position: relative;
+                  background-color: #4CAF50;
+                  z-index: ;
+              }
+              
+              .Essaies {
+                width: 353px;
+                position: relative;
+                background-color: #4CAF50;
+                z-index: 2;
+            }
+            .Motsecret {
+              width: 353px;
+              position: relative;
+              background-color: #4CAF50;
+              z-index: 2;
+            }
+            .LettresUtilisee {
+              width: 353px;
+              position: relative;
+              background-color: #4CAF50;
+              z-index: 2;
+            }
+            
+              
+              .bouton {
+                  border-width: 0px;
+                  background-color: transparent;
+                  padding: 40px;
+                  border:  2px solid green;
+                  border-radius: 100px;
+                  background-size: 140px;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  transition: background-image 0.5s;
+                  cursor: pointer;
+              }
+              .bouton:hover {
+                  opacity: 0.7;
+              }
+              .keyboard {
+                  position: relative;
+                  bottom: 10px;
+                  left: 100px;
+                  
+              }
+              .keyboard1 {
+                  width: 1500px;
+                  position: relative; 
+                  left: 10px;
+                  top:15px;
+
+               }
+               .keyboard2 {
+                  width: 1300px;
+                  position: relative;
+                  left: 300px;
+                  top:150px;
+                  z-index: 2;
+               }
+               .keyboard3 {
+                  width: 800px;
+                  position: relative;
+                  left: 570px;
+                  top:150px;
+                  z-index: 2;
+               }
+              
+              
+              
+              #A {
+                  background-image: url('/pictures/boutonA-removebg-preview.png');
+              }
+              #B {
+                  background-image: url('/pictures/boutonB-removebg-preview.png');
+              }
+              #C {
+                  background-image: url('/pictures/boutonC-removebg-preview.png');
+              }
+              #D {
+                  background-image: url('/pictures/boutonD-removebg-preview.png');
+              }
+              #E {
+                  background-image: url('/pictures/boutonE-removebg-preview.png');
+              }
+              #F {
+                  background-image: url('/pictures/boutonF-removebg-preview.png');
+              }
+              #G {
+                  background-image: url('/pictures/boutonG-removebg-preview.png');
+              }
+              #H {
+                  background-image: url('/pictures/boutonH-removebg-preview.png');
+              }
+              #I {
+                  background-image: url('/pictures/boutonI-removebg-preview.png');
+              }
+              #J {
+                  background-image: url('/pictures/boutonJ-removebg-preview.png');
+              }
+              #K {
+                  background-image: url('/pictures/boutonK-removebg-preview.png');
+              }
+              #L {
+                  background-image: url('/pictures/boutonL-removebg-preview.png');
+              }
+              #M {
+                  background-image: url('/pictures/boutonM-removebg-preview.png');
+              }
+              #N {
+                  background-image: url('/pictures/boutonN-removebg-preview.png');
+              }
+              #O {
+                  background-image: url('/pictures/boutonO-removebg-preview.png');
+              }
+              #P {
+                  background-image: url('/pictures/boutonP-removebg-preview.png');
+              }
+              #Q {
+                  background-image: url('/pictures/boutonQ-removebg-preview.png');
+              }
+              #R {
+                  background-image: url('/pictures/boutonR-removebg-preview.png');
+              }
+              #S {
+                  background-image: url('/pictures/boutonS-removebg-preview.png');
+              }
+              #T {
+                  background-image: url('/pictures/boutonT-removebg-preview.png');
+              }
+              #U {
+                  background-image: url('/pictures/boutonU-removebg-preview.png');
+              }
+              #V {
+                  background-image: url('/pictures/boutonV-removebg-preview.png');
+              }
+              #W {
+                  background-image: url('/pictures/boutonW-removebg-preview.png');
+              }
+              #X {
+                  background-image: url('/pictures/boutonX-removebg-preview.png');
+              }
+              #Y {
+                  background-image: url('/pictures/boutonY-removebg-preview.png');
+              }
+              #Z {
+                  background-image: url('/pictures/boutonZ-removebg-preview.png');
+              }
+        </style>
+
+   </head>
+   
+    <body background = "hangmanstage/Stage{{ .Essaies}}.png"> 
+    <h1>Bienvenue au jeu du Pendu !</h1>
+    <p class="Motcachee">Mot à deviner: {{.Motcachee}}</p>
+    <p class="Essaies">Vies restantes: {{.Essaies}}</p>
+    <p class="LettresUtilisee">Lettres déjà devinées: {{.LettresUtilisee}}</p>
+    <p class="Motsecret">mot: {{.Motsecret}}</p>
+    
+    {{if .Win}}         
+         <div class="jurassic">
+            <h3>  Vous venez de gagner !!!  </h3>
+            <form action="/Home">
+               <button type="submit" class="menu-btn" name="letter" value="back"> Menu </button>
+            </form>
+         </div>
+         {{else}}
+         <div class="jurassic"> <!--applique le style d'écriture JurassicPark dans le texte ci-dessous-->
+            <h4>  Le mot etait tout simplement : {{ .Motcachee }} </h4> <!-- affiche le mot secret si on a perdu ou si on a FF-->
+            <form action="/Home">
+               <button type="submit" class="exit-btn" name="letter" value="back"> Menu </button>
+            </form>
+         </div>
+         {{end}}
+    
+    
+    <form action="/Play" method="post">
+      <input type="text" id="inputWord" name="letter" value="">
+      <button type="submit">Soumettre</button>
+    </form>
+
+
+    <div class="keyboard">
+      <div class="keyboard1">
+          <button class="bouton" id="A"  value="a" onclick="addLetter('a')"></button>
+          <button class="bouton" id="B"  value="b" onclick="addLetter('b')"></button>
+          <button class="bouton" id="C"  value="c" onclick="addLetter('c')"></button>
+          <button class="bouton" id="D"  value="d" onclick="addLetter('d')"></button>
+          <button class="bouton" id="E"  value="e" onclick="addLetter('e')"></button>
+          <button class="bouton" id="F"  value="f" onclick="addLetter('f')"></button>
+          <button class="bouton" id="G"  value="g" onclick="addLetter('g')"></button>
+          <button class="bouton" id="H"  value="h" onclick="addLetter('h')"></button>
+          <button class="bouton" id="I"  value="i" onclick="addLetter('i')"></button>
+          <button class="bouton" id="J"  value="j" onclick="addLetter('j')"></button>
+          <button class="bouton" id="K"  value="k" onclick="addLetter('k')"></button>
+          <button class="bouton" id="L"  value="l" onclick="addLetter('l')"></button>
+      </div>
+      <div class="keyboard2">
+          <button class="bouton" id="M"  value="m" onclick="addLetter('m')"></button>
+          <button class="bouton" id="N"  value="n" onclick="addLetter('n')"></button>
+          <button class="bouton" id="O"  value="o" onclick="addLetter('o')"></button>
+          <button class="bouton" id="P"  value="p" onclick="addLetter('p')"></button>
+          <button class="bouton" id="Q"  value="q" onclick="addLetter('q')"></button>
+          <button class="bouton" id="R"  value="r" onclick="addLetter('r')"></button>
+          <button class="bouton" id="S"  value="s" onclick="addLetter('s')"></button>
+          <button class="bouton" id="T"  value="t" onclick="addLetter('t')"></button>
+          <button class="bouton" id="U"  value="u" onclick="addLetter('u')"></button>
+      </div>
+      <div class="keyboard3">
+          <button class="bouton" id="V"  value="v" onclick="addLetter('v')"></button>
+          <button class="bouton" id="W"  value="w" onclick="addLetter('w')"></button>
+          <button class="bouton" id="X"  value="x" onclick="addLetter('x')"></button>
+          <button class="bouton" id="Y"  value="y" onclick="addLetter('y')"></button>
+          <button class="bouton" id="Z"  value="z" onclick="addLetter('z')"></button>
+      </div>
+
+      <script>    
+          // Fonction pour ajouter une lettre au champ de saisie
+          function addLetter(letter) {
+            const inputWord = document.getElementById('inputWord');
+            inputWord.value += letter;
+          }
+        </script>
+
+    </div>    
+    <a href="/" class="back" >Go to Game Page</a>
+    <p class="Ynov">Ynov campus <br> MONTPELLIER</p>
+   </body>
+</html>
