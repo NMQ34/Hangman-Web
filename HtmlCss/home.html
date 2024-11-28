@@ -3,134 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="HtmlCss/StyleHome.css" type="text/css">
     <title>Hangman</title>
     <style>
-    /* Style général pour le corps de la page */
-    body {
-        background-image: url('pictures/menu.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: white;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-    }
+        body{ 
+            margin: 0;
+            padding: 0;
+            background-image: url("/pictures/menu.png");
+            background-repeat: no-repeat; /* Empêche la répétition */
+            background-size: cover; /* Ajuste l'image pour couvrir toute la page */
+            background-position: center; /* Centre l'image */
+            height: 100vh; /* Assure que le corps occupe toute la hauteur de la fenêtre */
+            overflow: hidden;
+        }
+        header { 
+            position: fixed;
+            width: 100%;
+            text-align: center;
+        }
+        h4{ 
+            font-size: 25px;
+        }
+        #texte {
+            margin-left: 100px;
+            position: relative; /* Crée un contexte pour les éléments enfants positionnés */
+            display: inline-block; /* Optionnel : ajuste la largeur à celle de l'image */
+        }
+        #texte img { 
+            display: block; /* Supprime les espaces blancs sous l'image */
+            width: 205%; /* Ajustez si nécessaire */
+        }
+        #texte h4 { 
+            width: 150%;
+            position: absolute; /* Positionne le texte par rapport au parent */
+            top: 45%; /* Centré verticalement */
+            left: 104%; /* Centré horizontalement */
+            transform: translate(-50%, -50%); /* Ajuste pour un vrai centrage */
+            font-size: 30px; /* Ajustez la taille du texte */
+            padding: 10px; /* Espacement autour du texte */
+            border-radius: 5px; /* Optionnel : rend les coins arrondis */
+            text-align: center;
+        }
+        
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%; /* Facultatif, pour s'étendre sur toute la largeur */
+            text-align: center; /* Optionnel, pour centrer le contenu */
+        }
 
-/* Style du titre */
-h1 {
-    color: blue; /* Couleur bleue pour le titre */
-    text-align: center;
-    font-size: 2.5em;
-    margin-top: 20px;
-}
 
-/* Cadre décoratif */
-.Cadre {
-    background-image: url('pictures/cadre-removebg-preview.webp');
-    display: flex;
-    flex-direction: column; /* Empiler les éléments à l'intérieur du cadre */
-    justify-content: center; /* Centrer verticalement */
-    align-items: center; /* Centrer horizontalement */
-    width: 80%; /* Largeur du cadre */
-    max-width: 800px; /* Largeur maximale */
-    margin-top: 30px; /* Espacement depuis le titre */
-    padding: 20px; /* Espace interne */
-    text-align: center; /* Centrer le contenu textuel */
-    min-height: 300px; /* Hauteur minimale pour éviter que le cadre soit trop petit */
-}
-
-/* Style pour l'info à l'intérieur du cadre */
-.Info {
-    font-size: 1.2em;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.6); /* Fond légèrement noir avec transparence */
-    border-radius: 10px; /* Bord arrondi */
-    color: white;
-    max-width: 90%; /* Largeur du texte dans le cadre */
-    margin-top: 20px; /* Espacement depuis le haut du cadre */
-}
-
-/* Formulaires et boutons */
-.Play {
-    display: flex;
-    justify-content: flex-end; /* Aligner les boutons à droite */
-    margin-top: 20px;
-    position: absolute; /* Pour placer les boutons en dehors du flux normal du document */
-    right: 20px; /* Espacement de 20px à droite */
-    top: 50%; /* Centrer verticalement sur la page */
-    transform: translateY(-50%); /* Ajustement pour bien centrer */
-}
-
-/* Style des boutons */
-.buttonPlay, .boutonE {
-    background-size: cover;
-    background-position: center;
-    width: 70px;
-    height: 70px;
-    background-image: url('pictures/—Pngtree—fault style button arrow fault_6644490.png');
-    border: none;
-    font-size: 1.2em;
-    margin-left: 10px;
-}
-
-.boutonP:hover, .boutonE:hover {
-    background-color: #45a049;
-}
-
-/* Texte dans les boutons */
-.boutonP:after, .boutonE:after {
-    content: attr(data-text);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1em;
-    color: white;
-    font-weight: bold;
-}
-
-/* Texte en bas de la page 
-p {
-    text-align: center;
-    margin-top: 20px;
-}*/
-</style>
+        
+    </style>
 </head>
 
 <body>
-    <!-- Titre -->
-    <h1>Bienvenue dans le Jeu!</h1>
+    <header>
+         <!-- Titre -->
+        <h1>HANGMAN</h1>
    
-    <!-- Cadre contenant l'info et les boutons -->
-    <div class="Cadre">
-        <!-- Information à l'intérieur du cadre -->
-        <p class="Info">
-            Prêt à relever le défi et à commencer une nouvelle aventure? Cliquez sur le bouton ci-dessous pour commencer!<br>
-            Explorez des mondes fantastiques, résolvez des énigmes et défiez vos amis dans ce jeu palpitant.<br>
-            Que la compétition commence!
-        </p>
+    </header>
+    <main>
+        
+        <div id="texte">
+            <img src="/pictures/cadre-removebg-preview.png" alt="">
+            <h4>
+                Prêt à relever le défi et à commencer une nouvelle aventure? Cliquez sur le bouton ci-dessous pour commencer!
+                Explorez des mondes fantastiques, résolvez des énigmes et défiez vos amis dans ce jeu palpitant.
+                Que la compétition commence!
+            </h4>
+        </div>
+        <div>
+            <!-- Formulaire pour commencer le jeu -->
+            <form action="/Play" class="Play">
+                <button class="buttonPlay" type="submit" data-text="Commencer"></button>
+            </form>
+            <!-- Formulaire pour quitter le jeu -->
+             <form action="/Lose" class="Exit">
+                <button class="buttonExit" type="submit" data-text="Quitter"></button>
+            </form>
+        </div>
 
-        <!-- Formulaire pour commencer le jeu -->
-        <form action="/Play" class="Play">
-            <button class="buttonPlay" type="submit" data-text="Commencer"></button>
-        </form>
-
-        <!-- Formulaire pour quitter le jeu -->
-        <form action="/Lose" class="Exit">
-            <button class="buttonExit" type="submit" data-text="Quitter"></button>
-        </form>
-    </div>
-
-    <!-- Information supplémentaire en bas -->
-    <p class="Ynov">Ynov campus <br> MONTPELLIER</p>
-
+    </main>
+    <footer>
+        <!-- Information supplémentaire en bas -->
+        <h4>Ynov campus Montpellier </h4>
+    </footer>
 </body>
 
 </html>

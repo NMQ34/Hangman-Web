@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
    <head>
-         <meta charset="UTF-8">
+        <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <link rel="stylesheet" href="HtmlCss/StyleGame.css" type="text/css">
          <script src="/js/script.js"></script>
@@ -205,22 +205,19 @@
     <p class="Essaies">Vies restantes: {{.Essaies}}</p>
     <p class="LettresUtilisee">Lettres déjà devinées: {{.LettresUtilisee}}</p>
     <p class="Motsecret">mot: {{.Motsecret}}</p>
-    
-    {{if .Win}}         
+
          <div class="jurassic">
             <h3>  Vous venez de gagner !!!  </h3>
             <form action="/Home">
                <button type="submit" class="menu-btn" name="letter" value="back"> Menu </button>
             </form>
          </div>
-         {{else}}
          <div class="jurassic"> <!--applique le style d'écriture JurassicPark dans le texte ci-dessous-->
             <h4>  Le mot etait tout simplement : {{ .Motcachee }} </h4> <!-- affiche le mot secret si on a perdu ou si on a FF-->
             <form action="/Home">
                <button type="submit" class="exit-btn" name="letter" value="back"> Menu </button>
             </form>
          </div>
-         {{end}}
     
     
     <form action="/Play" method="post">
