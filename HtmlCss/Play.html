@@ -42,21 +42,59 @@
             display: flex;
             justify-content: center;
             position: absolute;
+            top: 25%;
             left: 0;
             right: 0;
         }
         #pp { 
             position: absolute;
             margin-left: 20px;
-            top: 250%;
-            right: 65%;
+            right: 70%;
             font-size: 30px;
             text-align: left;
         }
+        #pendu{ 
+            right: 7%;
+            position: relative;
+            top: 250%;
+        }
         #letter { 
             position: absolute;
-            left: 80%;
+            left: 53%;
+            width: 100%;
+
         }
+        #game { 
+            margin: 20px;
+            position: relative;
+            left: 10%;
+        }
+        #game input {
+            width: 300px;
+            height: 50px;
+            margin: 20px;  
+        }
+        .bouton {
+            background: none;
+            border: none;
+            width: 75px;
+            height: 75px;
+            margin: 3px;
+            transition: transform 0.3s ease; /* Transition pour l'animation */
+            cursor: pointer;
+        }
+        .bouton:hover {
+            transform: scale(1.2); /* Agrandit le bouton à 120% */
+        }
+        .bouton img { 
+            width: 100%;
+        }
+
+        .keyboard3 { 
+            position: absolute;
+            left: 9%;
+        }
+      
         footer {
             color: white;
             position: fixed;
@@ -68,7 +106,6 @@
         footer p { 
             font-size: 25px;
         }
-
     </style>
     <body background = "/pictures/menu.png"> 
         <header>
@@ -86,48 +123,101 @@
                 <h4>  Le mot etait tout simplement : {{ .Motcachee }} </h4> <!-- affiche le mot secret si on a perdu ou si on a FF-->
             </section>
             <section id="pendu">
-                <h1>ENPLACEMENT DU PENDU</h1>
+                <img src="/pictures/win-resized.jpg" alt="">
             </section>
             <section id="letter">
-                <form action="/Home">
+
+                <!--<form action="/Home">
                     <button type="submit" class="exit-btn" name="letter" value="back"> Menu </button>
-                </form>
-                <form action="/Play" method="post">
+                </form>-->
+                <form action="/Play" method="post" id="game">
                     <input type="text" id="inputWord" name="letter" value="">
                     <button type="submit">Soumettre</button>
                 </form>
                 <div class="keyboard">
                     <div class="keyboard1">
-                        <button class="bouton" id="A"  value="a" onclick="addLetter('a')"></button>
-                        <button class="bouton" id="B"  value="b" onclick="addLetter('b')"></button>
-                        <button class="bouton" id="C"  value="c" onclick="addLetter('c')"></button>
-                        <button class="bouton" id="D"  value="d" onclick="addLetter('d')"></button>
-                        <button class="bouton" id="E"  value="e" onclick="addLetter('e')"></button>
-                        <button class="bouton" id="F"  value="f" onclick="addLetter('f')"></button>
-                        <button class="bouton" id="G"  value="g" onclick="addLetter('g')"></button>
-                        <button class="bouton" id="H"  value="h" onclick="addLetter('h')"></button>
-                        <button class="bouton" id="I"  value="i" onclick="addLetter('i')"></button>
-                        <button class="bouton" id="J"  value="j" onclick="addLetter('j')"></button>
-                        <button class="bouton" id="K"  value="k" onclick="addLetter('k')"></button>
-                        <button class="bouton" id="L"  value="l" onclick="addLetter('l')"></button>
+                        <button class="bouton" id="A"  value="a" onclick="addLetter('a')">
+                            <img src="/pictures/newA.png" alt="">
+                        </button>
+                        <button class="bouton" id="Z"  value="z" onclick="addLetter('z')">
+                            <img src="/pictures/newZ.png" alt="">
+                        </button>
+                        <button class="bouton" id="E"  value="e" onclick="addLetter('e')">
+                            <img src="/pictures/newE.png" alt="">
+                        </button>
+                        <button class="bouton" id="R"  value="r" onclick="addLetter('r')">
+                            <img src="/pictures/newR.png" alt="">
+                        </button>
+                        <button class="bouton" id="T"  value="t" onclick="addLetter('t')">
+                            <img src="/pictures/newT.png" alt="">
+                        </button>
+                        <button class="bouton" id="Y"  value="y" onclick="addLetter('y')">
+                            <img src="/pictures/newY.png" alt="">
+                        </button>
+                        <button class="bouton" id="U"  value="u" onclick="addLetter('u')">
+                            <img src="/pictures/newU.png" alt="">
+                        </button>
+                        <button class="bouton" id="I"  value="i" onclick="addLetter('i')">
+                            <img src="/pictures/newI.png" alt="">
+                        </button>
+                        <button class="bouton" id="O"  value="o" onclick="addLetter('o')">
+                            <img src="/pictures/newO.png" alt="">
+                        </button>
+                        <button class="bouton" id="P"  value="p" onclick="addLetter('p')">
+                            <img src="/pictures/newP.png" alt="">
+                        </button>
                     </div>
                     <div class="keyboard2">
-                        <button class="bouton" id="M"  value="m" onclick="addLetter('m')"></button>
-                        <button class="bouton" id="N"  value="n" onclick="addLetter('n')"></button>
-                        <button class="bouton" id="O"  value="o" onclick="addLetter('o')"></button>
-                        <button class="bouton" id="P"  value="p" onclick="addLetter('p')"></button>
-                        <button class="bouton" id="Q"  value="q" onclick="addLetter('q')"></button>
-                        <button class="bouton" id="R"  value="r" onclick="addLetter('r')"></button>
-                        <button class="bouton" id="S"  value="s" onclick="addLetter('s')"></button>
-                        <button class="bouton" id="T"  value="t" onclick="addLetter('t')"></button>
-                        <button class="bouton" id="U"  value="u" onclick="addLetter('u')"></button>
+                        <button class="bouton" id="Q"  value="q" onclick="addLetter('q')">
+                            <img src="/pictures/newQ.png" alt="">
+                        </button>
+                        <button class="bouton" id="S"  value="s" onclick="addLetter('s')">
+                            <img src="/pictures/newS.png" alt="">
+                        </button>
+                        <button class="bouton" id="D"  value="d" onclick="addLetter('d')">
+                            <img src="/pictures/newD.png" alt="">
+                        </button>
+                        <button class="bouton" id="F"  value="f" onclick="addLetter('f')">
+                            <img src="/pictures/newF.png" alt="">
+                        </button>
+                        <button class="bouton" id="G"  value="g" onclick="addLetter('g')">
+                            <img src="/pictures/newG.png" alt="">
+                        </button>
+                        <button class="bouton" id="H"  value="h" onclick="addLetter('h')">
+                            <img src="/pictures/newH.png" alt="">
+                        </button>
+                        <button class="bouton" id="J"  value="j" onclick="addLetter('j')">
+                            <img src="/pictures/newJ.png" alt="">
+                        </button>
+                        <button class="bouton" id="K"  value="k" onclick="addLetter('k')">
+                            <img src="/pictures/newK.png" alt="">
+                        </button>
+                        <button class="bouton" id="L"  value="l" onclick="addLetter('l')">
+                            <img src="/pictures/newL.png" alt="">
+                        </button>
+                        <button class="bouton" id="M"  value="m" onclick="addLetter('m')">
+                            <img src="/pictures/newM.png" alt="">
+                        </button>
                     </div>
                     <div class="keyboard3">
-                        <button class="bouton" id="V"  value="v" onclick="addLetter('v')"></button>
-                        <button class="bouton" id="W"  value="w" onclick="addLetter('w')"></button>
-                        <button class="bouton" id="X"  value="x" onclick="addLetter('x')"></button>
-                        <button class="bouton" id="Y"  value="y" onclick="addLetter('y')"></button>
-                        <button class="bouton" id="Z"  value="z" onclick="addLetter('z')"></button>
+                        <button class="bouton" id="W"  value="w" onclick="addLetter('w')">
+                            <img src="/pictures/newW.png" alt="">
+                        </button>
+                        <button class="bouton" id="X"  value="x" onclick="addLetter('x')">
+                            <img src="/pictures/newX.png" alt="">
+                        </button>
+                        <button class="bouton" id="C"  value="c" onclick="addLetter('c')">
+                            <img src="/pictures/newC.png" alt="">
+                        </button>
+                        <button class="bouton" id="V"  value="v" onclick="addLetter('v')">
+                            <img src="/pictures/newV.png" alt="">
+                        </button>
+                        <button class="bouton" id="B"  value="b" onclick="addLetter('b')">
+                            <img src="/pictures/newB.png" alt="">
+                        </button>
+                        <button class="bouton" id="N"  value="n" onclick="addLetter('n')">
+                            <img src="/pictures/newN.png" alt="">
+                        </button>
                     </div>
                 </div>
             </section>
