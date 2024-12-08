@@ -54,9 +54,15 @@
             text-align: left;
         }
         #pendu{ 
-            right: 7%;
+            right: 10%;
             position: relative;
             top: 250%;
+        }
+        canvas{ 
+            
+            border: 2px solid ;
+            width: 400px;
+            height: 550px;
         }
         #letter { 
             position: absolute;
@@ -107,7 +113,7 @@
             font-size: 25px;
         }
     </style>
-    <body background = "/pictures/menu.png"> 
+    <body> 
         <header>
             <p>HANGMAN</p>
         </header>
@@ -123,7 +129,7 @@
                 <h4>  Le mot etait tout simplement : {{ .Motcachee }} </h4> <!-- affiche le mot secret si on a perdu ou si on a FF-->
             </section>
             <section id="pendu">
-                <img src="/pictures/win-resized.jpg" alt="">
+                <canvas></canvas>
             </section>
             <section id="letter">
 
@@ -223,7 +229,7 @@
             </section>
         </main>
         <footer>
-            <a href="/" class="back" >Go to Game Page</a>
+            <!--<a href="/" class="back" >Go to Game Page</a>-->
             <p>Ynov Campus Montpellier</p>
         </footer>
         <script>
@@ -231,7 +237,59 @@
             function addLetter(letter) {
                 const inputWord = document.getElementById('inputWord');
                 inputWord.value += letter;
-            }
+            } ;
+            //LE PENDU
+
+
+
+
+
+            const canvas = document.querySelector("canvas")
+            const ctx = canvas.getContext('2d')
+            ctx.beginPath() ; 
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 3; // Épaisseur du contour
+            //Etape1 du pendu 
+            ctx.moveTo(10,145) ; 
+            ctx.lineTo(280,145) ; 
+            //Etape2 du pendu 
+            ctx.moveTo(30,145) ; 
+            ctx.lineTo(30,10) ; 
+            //Etape3
+            ctx.moveTo(30,10)
+            ctx.lineTo(180,10); 
+            ctx.moveTo(30,30) ; 
+            ctx.lineTo(120,10) ; 
+            //Etape4
+            ctx.moveTo(180,10)
+            ctx.lineTo(180,30)
+            //Etape5
+            ctx.arc(180,45,12,0,Math.PI*2)
+            //Etape6
+            ctx.moveTo(180,57) ; 
+            ctx.lineTo(180,100); 
+            //Etape7 
+            ctx.moveTo(180,100) 
+            ctx.lineTo(150,120)
+            //Etape8
+            ctx.moveTo(180,100) 
+            ctx.lineTo(210,120)
+            //Etape9
+            ctx.moveTo(180,70) 
+            ctx.lineTo(150,85)
+            //Etape8
+            ctx.moveTo(180,70) 
+            ctx.lineTo(210,85)
+
+
+            ctx.stroke()
+
+
+
+
+
+
+
         </script>
     </body>
 </html>
