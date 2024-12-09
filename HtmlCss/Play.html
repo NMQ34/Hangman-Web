@@ -253,6 +253,20 @@
             function addLetter(letter) {
                 const inputWord = document.getElementById('inputWord');
                 inputWord.value += letter;
+                inputWord.focus(); // Garde le focus sur le champ
+            }
+    
+            // Met le focus automatique sur le champ texte au chargement de la page
+            window.onload = function () {
+                const inputWord = document.getElementById('inputWord');
+                inputWord.focus();
+            };
+        </script>
+        <script>
+            // Fonction pour ajouter une lettre au champ de saisie
+            function addLetter(letter) {
+                const inputWord = document.getElementById('inputWord');
+                inputWord.value += letter;
             } ;
             //LE PENDU
 
