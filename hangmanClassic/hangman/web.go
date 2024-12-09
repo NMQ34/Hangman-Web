@@ -42,11 +42,13 @@ func (s *Structure) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Structure) lose(w http.ResponseWriter, r *http.Request) {
-
+	tmpl := template.Must(template.ParseFiles("./HtmlCss/Lose.html"))
+	tmpl.Execute(w, nil)
 }
 
 func (s *Structure) win(w http.ResponseWriter, r *http.Request) {
-
+	tmpl := template.Must(template.ParseFiles("./HtmlCss/Win.html"))
+	tmpl.Execute(w, nil)
 }
 func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 

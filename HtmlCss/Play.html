@@ -114,6 +114,21 @@
         }
     </style>
     <body> 
+        {{if .Victoire}}
+            <script>
+                setTimeout(function() {
+                    window.location.href = "https://localhost:8080/Win";
+                }, 0);
+            </script>
+        {{end}}
+        {{if .Echec}}
+            
+            <script>
+                setTimeout(function() {
+                    window.location.href = "https://localhost:8080/Lose";
+                }, 0);
+            </script>
+        {{end}}
         <header>
             <p>HANGMAN</p>
         </header>

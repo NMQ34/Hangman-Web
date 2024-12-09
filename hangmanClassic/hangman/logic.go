@@ -122,3 +122,8 @@ func (s *Structure) CheckOut() {
 		s.Win = true
 	}
 }
+
+func (s *Structure) Restart(){
+	s.Run()
+}
+
