@@ -22,3 +22,7 @@ func (s *Structure) Run() {
 		s.web()
 	}
 }
+
+func (s *Structure) Reset() {
+    s.init()
+}
