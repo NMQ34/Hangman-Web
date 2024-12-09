@@ -27,6 +27,7 @@ func (s *Structure) web() {
 	http.HandleFunc("/Play", s.play)
 	http.HandleFunc("/Lose", s.lose)
 	http.HandleFunc("/Win", s.win)
+	http.HandleFunc("/Reset", s.reset)
 
 	// chargement du port utilisé
 	fmt.Println("http://localhost:8080/")
@@ -98,4 +99,9 @@ func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("HtmlCss/Play.html"))
 		tmpl.Execute(w, web)
 	}
+}
+
+func (s *Structure) reset(w http.ResponseWriter, r *http.Request) {
+    s.Reset()
+    http.Redirect(w, r, "/Play", http.StatusSeeOther) // Redirige vers la page de jeu
 }
