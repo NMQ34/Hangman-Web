@@ -85,7 +85,7 @@ func (s *Structure) SelectRandomWord() []rune {
 	ListOfWord := strings.Split(string(content), "\n")
 	randomIndex := rand.Intn(len(ListOfWord))
 	str := ListOfWord[randomIndex]
-	word := str[:len(str)-1]
+	word := str[:len(str)]
 
 	return []rune(word)
 }
@@ -123,7 +123,6 @@ func (s *Structure) CheckOut() {
 	}
 }
 
-func (s *Structure) Restart(){
+func (s *Structure) Restart() {
 	s.Run()
 }
-
