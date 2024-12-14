@@ -26,7 +26,7 @@
             color: white;
         }
 
-        #header { 
+        header { 
             display: flex;
             right: 0;
             left: 0;
@@ -37,6 +37,7 @@
             justify-content: center;
             flex-direction: column;
         }
+        
         h1{ 
             font-size: 60px;
         }
@@ -44,7 +45,7 @@
             font-size: 30px;
         }
 
-        #main { 
+        main { 
             position: absolute;
             display: flex;
             right: 0;
@@ -54,10 +55,10 @@
             justify-content: center;
         }
 
-        #main form { 
+        main form { 
             margin: 25px;
         }
-        #main button { 
+        main button { 
             width: 50%;
             background: none;
             border: none;
@@ -78,7 +79,7 @@
         }
 
 
-        #footer {
+        footer {
             color: white;
             position: fixed;
             bottom: 0;
@@ -86,17 +87,17 @@
             width: 100%; /* Facultatif, pour s'étendre sur toute la largeur */
             text-align: center; /* Optionnel, pour centrer le contenu */
         }
-        #footer p { 
+        footer p { 
             font-size: 25px;
         }
     </style>
     <body>
-        <div id="header">
+        <header>
             <h1>Félicitations vous avez gagnez !!!</h1>
             <h2 id="motadeviner">Le mot était bien  : {{.Motcachee}}</h2>
             <h2 id="essai">Nombre d'essais : {{.Essaies}}</h2>
-        </div>
-        <div id="main">
+        </header>
+        <main>
             <!--<form action="/Play" class="boutonDeMenu">
                 <button class="bouton-menu" id="replay" type="submit" value="restart" name="bouton-menu" ></button>
             </form>-->
@@ -118,11 +119,11 @@
                     <img src="/pictures/quit-removebg-preview.png" alt="">
                 </button>
             </form>
-        </div>
+        </main>
         <hr>
-        <div id="footer">
+        <footer>
             <!--<a href="/" class="back" >Go to Game Page</a>-->
             <p>Ynov Campus Montpellier</p>
-        </div>
+        </footer>
     </body>
 </html>
