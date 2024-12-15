@@ -1,9 +1,5 @@
 // Met le focus automatique sur le champ texte au chargement de la page
-window.onload = function () {
-    const inputWord = document.getElementById('inputWord');
-    inputWord.focus();
-};
-    
+
 // Fonction pour ajouter une lettre au champ de saisie
 function addLetter(letter) {
     const inputWord = document.getElementById('inputWord');
@@ -15,7 +11,8 @@ window.onload = function () {
     // Récupérer la valeur de 'essaies' depuis le DOM
     const essaiesElement = document.getElementById('gameData');
     const essaies = parseInt(essaiesElement.dataset.essaies, 10);
-
+    const inputWord = document.getElementById('inputWord');
+    inputWord.focus();
     console.log('Nombre de vies restantes :', essaies);
 
     // Appeler une fonction pour dessiner en fonction de 'essaies'
