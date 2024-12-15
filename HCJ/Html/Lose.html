@@ -9,31 +9,43 @@
     <link rel="stylesheet" href="/HCJ/Css/Lose.css" type="text/css">
     <title>Jeu du Pendu - Accueil</title>
 </head>
-
 <body>
     <header class="container">
+        <!-- Section d'en-tête affichant un message de défaite -->
+        
+        <!-- Titre principal indiquant la défaite du joueur -->
         <h1>Oh Non vous avez perdu !!!</h1>
+
+        <!-- Sous-titre affichant le mot que le joueur devait deviner, avec utilisation de la variable {{.Motsecret}} -->
         <h2 id="motadeviner">Le mot était : {{.Motsecret}}</h2>
     </header>
+
     <main>
-        <!--<form action="/Play" class="boutonDeMenu">
-            <button class="bouton-menu" id="replay" type="submit" value="restart" name="bouton-menu" ></button>
-        </form>-->
+        <!-- Section principale contenant les boutons pour rejouer ou retourner à l'accueil -->
+        
+        <!-- Formulaire permettant de redémarrer le jeu en envoyant une requête POST vers "/Reset" -->
         <form action="/Reset" method="post">
             <button type="submit">
+                <!-- Image décorative pour le bouton de redémarrage -->
                 <img src="/pictures/Capture_d_écran_du_2024-12-10_12.png" alt="">
             </button>
         </form>
 
+        <!-- Formulaire permettant de retourner à la page d'accueil en envoyant une requête vers "/Home" -->
         <form action="/Home" class="boutonDeMenu">
             <button class="bouton-menu" id="maison" type="submit" value="restart" name="bouton-menu">
+                <!-- Image décorative pour le bouton de retour à l'accueil -->
                 <img src="/pictures/Capture_d_écran_du_2024-12-11_15.png" alt="">
             </button>
         </form>
     </main>
+
     <hr>
+
     <footer>
-        <!--<a href="/" class="back" >Go to Game Page</a>-->
+        <!-- Section de pied de page avec des informations supplémentaires -->
+        
+        <!-- Crédits indiquant l'origine du jeu ou son développeur -->
         <p>Ynov Campus Montpellier</p>
     </footer>
 </body>
