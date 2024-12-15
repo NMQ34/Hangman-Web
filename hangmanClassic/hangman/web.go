@@ -17,10 +17,9 @@ type DataForm struct {
 
 func (s *Structure) web() {
 	// chargement de tous les répertoirs présents dans "Hangman-Web"
-	http.Handle("/hangmanstage/", http.StripPrefix("/hangmanstage/", http.FileServer(http.Dir("hangmanstage"))))
 	http.Handle("/pictures/", http.StripPrefix("/pictures/", http.FileServer(http.Dir("pictures"))))
-	http.Handle("/texte/", http.StripPrefix("/texte/", http.FileServer(http.Dir("texte"))))
-	http.Handle("/HCJ/", http.StripPrefix("/HCJ/", http.FileServer(http.Dir("HCJ"))))
+    http.Handle("/texte/", http.StripPrefix("/texte/", http.FileServer(http.Dir("texte"))))
+    http.Handle("/HCJ/", http.StripPrefix("/HCJ/", http.FileServer(http.Dir("HCJ"))))
 
 	http.HandleFunc("/", s.Home)
 	http.HandleFunc("/Home", s.Home)
@@ -45,19 +44,19 @@ func (s *Structure) Home(w http.ResponseWriter, r *http.Request) {
 func (s *Structure) lose(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./HCJ/Html/Lose.html"))
 	web := DataForm{
-		Essaies:         s.Lives,
-		Motsecret:       s.ConvertRinS(s.SecretWord),
+		Essaies:   s.Lives,
+		Motsecret: s.ConvertRinS(s.SecretWord),
 	}
-	tmpl.Execute(w,web)
+	tmpl.Execute(w, web)
 }
 
 func (s *Structure) win(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./HCJ/Html/Win.html"))
 	web := DataForm{
-		Essaies:         s.Lives,
-		Motcachee:       s.ConvertRinS(s.Blanks),
+		Essaies:   s.Lives,
+		Motcachee: s.ConvertRinS(s.Blanks),
 	}
-	tmpl.Execute(w,web)
+	tmpl.Execute(w, web)
 }
 func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 
@@ -110,6 +109,6 @@ func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Structure) reset(w http.ResponseWriter, r *http.Request) {
-    s.Reset()
-    http.Redirect(w, r, "/Play", http.StatusSeeOther) // Redirige vers la page de jeu
+	s.Reset()
+	http.Redirect(w, r, "/Play", http.StatusSeeOther) // Redirige vers la page de jeu
 }

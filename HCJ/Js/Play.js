@@ -1,40 +1,36 @@
+// Met le focus automatique sur le champ texte au chargement de la page
+
 // Fonction pour ajouter une lettre au champ de saisie
 function addLetter(letter) {
     const inputWord = document.getElementById('inputWord');
     inputWord.value += letter;
     inputWord.focus(); // Garde le focus sur le champ
 }
-    
-// Met le focus automatique sur le champ texte au chargement de la page
 window.onload = function () {
-    const inputWord = document.getElementById('inputWord');
-    inputWord.focus();
+    // Récupérer la valeur de 'essaies' depuis le DOM
+    const essaiesElement = document.getElementById('gameData');
+    const essaies = parseInt(essaiesElement.dataset.essaies, 10);
+
+    console.log('Nombre de vies restantes :', essaies);
+
+    // Appeler une fonction pour dessiner en fonction de 'essaies'
+    drawHangman(essaies);
 };
-       
-// Fonction pour ajouter une lettre au champ de saisie
-function addLetter(letter) {
-    const inputWord = document.getElementById('inputWord');
-    inputWord.value += letter;
-} ;
-//LE PENDU
-let essaies = {{.Essaies}}  // La valeur de .Essaies sera injectée ici depuis le serveur
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
-canvas.width = 400;
-canvas.height = 550;
 
-// ** Configuration des lignes Retrowave **
-ctx.beginPath();
-ctx.lineCap = "round";
-ctx.lineJoin = "round";
-ctx.lineWidth = 8; // Épaisseur du contour
+function drawHangman(essaies) {
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 400;
+    canvas.height = 550;
 
-// Ajout d'effets lumineux pour les lignes
-ctx.shadowColor = "rgba(255, 0, 255, 0.1)"; // Ombre néon
-ctx.shadowBlur = 15; // Flou pour effet lumineux
-
-// Couleur néon pour les lignes
-ctx.strokeStyle = "#abfcff"; // Rose néon (peut être changé selon les goûts)
+    // Dessin du pendu en fonction de 'essaies'
+    ctx.beginPath();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 8;
+    ctx.shadowColor = "rgba(255, 0, 255, 0.1)";
+    ctx.shadowBlur = 15;
+    ctx.strokeStyle = "#abfcff";
 
 // ** Dessin des étapes du pendu 
 if (essaies==9) {
@@ -273,4 +269,4 @@ if (essaies==9) {
     ctx.lineTo(360, 310);
 
     ctx.stroke();
-}
+}}

@@ -7,7 +7,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Lacquer&family=Nabla&family=Playwrite+HR+Lijeva:wght@100..400&family=Rubik+Glitch&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/HCJ/Css/Play.css" type="text/css">
-        <script src="./Hangman-Web/HCJ/Js/Play.js" type="text/javascript" ></script>
+        <script src="/HCJ/Js/Play.js" type="text/javascript"></script>
         <title> HANGMAN </title>
     </head>
     
@@ -42,6 +42,7 @@
                 <h4>  Le mot etait tout simplement : {{ .Motsecret }} </h4> <!-- affiche le mot secret si on a perdu ou si on a FF-->
             </section>
             <section id="pendu">
+                <div id="gameData" data-essaies="{{.Essaies}}"></div>
                 <canvas></canvas>
             </section>
             <section id="letter">
