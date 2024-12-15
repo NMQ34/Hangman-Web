@@ -2,7 +2,7 @@
 body{ 
     margin: 0;
     padding: 0;
-    background-image: url("/pictures/wingame.jpg");
+    background-image: url("/pictures/wintemplate.jpg");
     background-repeat: no-repeat; /* Empêche la répétition */
     background-size: cover; /* Ajuste l'image pour couvrir toute la page */
     background-position: center; /* Centre l'image */

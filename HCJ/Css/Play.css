@@ -1,7 +1,7 @@
 body{ 
     margin: 0;
     padding: 0;
-    background-image: url("/pictures/menu.png");
+    background-image: url("/pictures/fondgame.jpg");
     background-repeat: no-repeat; /* Empêche la répétition */
     background-size: cover; /* Ajuste l'image pour couvrir toute la page */
     background-position: center; /* Centre l'image */
