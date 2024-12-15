@@ -102,7 +102,7 @@ func (s *Structure) SelectRandomWord() []rune {
 	ListOfWord := strings.Split(string(content), "\n")
 	randomIndex := rand.Intn(len(ListOfWord)) // Sélectionne un mot au hasard.
 	str := ListOfWord[randomIndex]
-	word := str[:len(str)-1] // Retire le caractère de fin de ligne.
+	word := str[:len(str)] // Retire le caractère de fin de ligne.
 
 	return []rune(word)
 }
