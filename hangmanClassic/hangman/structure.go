@@ -10,7 +10,6 @@ type Structure struct {
 	Blanks       []rune
 	Lives        int
 	LetterTested string
-	Level int
 
 	//variables servant de changer l'état du jeu
 	Win  bool

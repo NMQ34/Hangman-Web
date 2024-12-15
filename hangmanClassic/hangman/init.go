@@ -9,7 +9,6 @@ func (s *Structure) init() {
 	s.Blanks = s.InitializeBlanks()
 	s.Lives = 10
 	s.LetterTested = ""
-	s.Level = 0
 	s.Win = false
 	s.Lose = false
 
