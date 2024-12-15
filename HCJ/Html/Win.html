@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jeu du Pendu - Accueil</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Lacquer&family=Nabla&family=Playwrite+HR+Lijeva:wght@100..400&family=Rubik+Glitch&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/HCJ/Css/Win.css" type="text/css">
+    </head>
+
+    <body>
+        <header>
+            <h1>Félicitations vous avez gagnez !!!</h1>
+            <h2 id="motadeviner">Le mot était bien  : {{.Motcachee}}</h2>
+        </header>
+        <main>
+            <!--<form action="/Play" class="boutonDeMenu">
+                <button class="bouton-menu" id="replay" type="submit" value="restart" name="bouton-menu" ></button>
+            </form>-->
+            <form action="/Reset" method="post">
+                <button type="submit">
+                    <img src="/pictures/Capture_d_écran_du_2024-12-10_12.png" alt="">
+                </button>
+            </form>  
+
+            <form action="/Home" class="boutonDeMenu">
+                <button class="bouton-menu" id="maison" type="submit" value="restart" name="bouton-menu">
+                    <img src="/pictures/Capture_d_écran_du_2024-12-11_15.png" alt="">
+                </button>
+            </form>
+        </main>
+        <hr>
+        <footer>
+            <!--<a href="/" class="back" >Go to Game Page</a>-->
+            <p>Ynov Campus Montpellier</p>
+        </footer>
+    </body>
+</html>

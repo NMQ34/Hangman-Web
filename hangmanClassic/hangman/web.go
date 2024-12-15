@@ -20,10 +20,10 @@ func (s *Structure) web() {
 	http.Handle("/hangmanstage/", http.StripPrefix("/hangmanstage/", http.FileServer(http.Dir("hangmanstage"))))
 	http.Handle("/pictures/", http.StripPrefix("/pictures/", http.FileServer(http.Dir("pictures"))))
 	http.Handle("/texte/", http.StripPrefix("/texte/", http.FileServer(http.Dir("texte"))))
-	http.Handle("/HtmlCss/", http.StripPrefix("/HtmlCss/", http.FileServer(http.Dir("HtmlCss"))))
+	http.Handle("/HCJ/", http.StripPrefix("/HCJ/", http.FileServer(http.Dir("HCJ"))))
 
-	http.HandleFunc("/", s.home)
-	http.HandleFunc("/Home", s.home)
+	http.HandleFunc("/", s.Home)
+	http.HandleFunc("/Home", s.Home)
 	http.HandleFunc("/Play", s.play)
 	http.HandleFunc("/Lose", s.lose)
 	http.HandleFunc("/Win", s.win)
@@ -37,19 +37,27 @@ func (s *Structure) web() {
 
 // fonctions pour chaque page
 
-func (s *Structure) home(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("HtmlCss/home.html"))
+func (s *Structure) Home(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./HCJ/Html/Home.html"))
 	tmpl.Execute(w, nil)
 }
 
 func (s *Structure) lose(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./HtmlCss/Lose.html"))
-	tmpl.Execute(w, nil)
+	tmpl := template.Must(template.ParseFiles("./HCJ/Html/Lose.html"))
+	web := DataForm{
+		Essaies:         s.Lives,
+		Motsecret:       s.ConvertRinS(s.SecretWord),
+	}
+	tmpl.Execute(w,web)
 }
 
 func (s *Structure) win(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./HtmlCss/Win.html"))
-	tmpl.Execute(w, nil)
+	tmpl := template.Must(template.ParseFiles("./HCJ/Html/Win.html"))
+	web := DataForm{
+		Essaies:         s.Lives,
+		Motcachee:       s.ConvertRinS(s.Blanks),
+	}
+	tmpl.Execute(w,web)
 }
 func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 
@@ -84,7 +92,7 @@ func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 			Echec:           s.Lose,
 		}
 
-		tmpl := template.Must(template.ParseFiles("HtmlCss/Play.html"))
+		tmpl := template.Must(template.ParseFiles("HCJ/Html/Play.html"))
 		tmpl.Execute(w, web)
 	} else {
 		web := DataForm{
@@ -96,7 +104,7 @@ func (s *Structure) play(w http.ResponseWriter, r *http.Request) {
 			Echec:           s.Lose,
 		}
 
-		tmpl := template.Must(template.ParseFiles("HtmlCss/Play.html"))
+		tmpl := template.Must(template.ParseFiles("HCJ/Html/Play.html"))
 		tmpl.Execute(w, web)
 	}
 }

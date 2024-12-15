@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Lacquer&family=Nabla&family=Playwrite+HR+Lijeva:wght@100..400&family=Rubik+Glitch&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/HCJ/Css/Play.css" type="text/css">
+        <script src="/HCJ/Js/Play.js" type="text/javascript" ></script>
+        <title> HANGMAN </title>
+    </head>
+    
+    <body> 
+        {{if .Victoire}}
+            <script>
+                setTimeout(function() {
+                    window.location.href = "/Win";
+                }, 0);
+            </script>
+        {{end}}
+        {{if .Echec}}
+            
+            <script>
+                setTimeout(function() {
+                    window.location.href = "/Lose";
+                }, 0);
+            </script>
+        {{end}}
+        <header>
+            <p>HANGMAN</p>
+        </header>
+        <main>
+            <section id="pp">
+                              
+                <p class="Motcachee">Mot à deviner: {{.Motcachee}}</p>
+                <p class="Essaies">Vies restantes: {{.Essaies}}</p>
+                <p class="LettresUtilisee">Lettres déjà devinées: {{.LettresUtilisee}}</p>
+                <div>
+                    <h3>  Vous venez de gagner !!!  </h3>
+                </div>
+                <h4>  Le mot etait tout simplement : {{ .Motsecret }} </h4> <!-- affiche le mot secret si on a perdu ou si on a FF-->
+            </section>
+            <section id="pendu">
+                <canvas></canvas>
+            </section>
+            <section id="letter">
+
+                <!--<form action="/Home">
+                    <button type="submit" class="exit-btn" name="letter" value="back"> Menu </button>
+                </form>-->
+                <form action="/Play" method="post" id="game">
+                    <input type="text" id="inputWord" name="letter" value="">
+                    <button type="submit">Soumettre</button>
+                </form>
+                <div class="keyboard">
+                    <div class="keyboard1">
+                        <button class="bouton" id="A"  value="a" onclick="addLetter('a')">
+                            <img src="/pictures/A.png" alt="">
+                        </button>
+                        <button class="bouton" id="Z"  value="z" onclick="addLetter('z')">
+                            <img src="/pictures/Z.png" alt="">
+                        </button>
+                        <button class="bouton" id="E"  value="e" onclick="addLetter('e')">
+                            <img src="/pictures/E.png" alt="">
+                        </button>
+                        <button class="bouton" id="R"  value="r" onclick="addLetter('r')">
+                            <img src="/pictures/R.png" alt="">
+                        </button>
+                        <button class="bouton" id="T"  value="t" onclick="addLetter('t')">
+                            <img src="/pictures/T.png" alt="">
+                        </button>
+                        <button class="bouton" id="Y"  value="y" onclick="addLetter('y')">
+                            <img src="/pictures/Y.png" alt="">
+                        </button>
+                        <button class="bouton" id="U"  value="u" onclick="addLetter('u')">
+                            <img src="/pictures/U.png" alt="">
+                        </button>
+                        <button class="bouton" id="I"  value="i" onclick="addLetter('i')">
+                            <img src="/pictures/I.png" alt="">
+                        </button>
+                        <button class="bouton" id="O"  value="o" onclick="addLetter('o')">
+                            <img src="/pictures/O.png" alt="">
+                        </button>
+                        <button class="bouton" id="P"  value="p" onclick="addLetter('p')">
+                            <img src="/pictures/P.png" alt="">
+                        </button>
+                    </div>
+                    <div class="keyboard2">
+                        <button class="bouton" id="Q"  value="q" onclick="addLetter('q')">
+                            <img src="/pictures/Q.png" alt="">
+                        </button>
+                        <button class="bouton" id="S"  value="s" onclick="addLetter('s')">
+                            <img src="/pictures/S.png" alt="">
+                        </button>
+                        <button class="bouton" id="D"  value="d" onclick="addLetter('d')">
+                            <img src="/pictures/D.png" alt="">
+                        </button>
+                        <button class="bouton" id="F"  value="f" onclick="addLetter('f')">
+                            <img src="/pictures/F.png" alt="">
+                        </button>
+                        <button class="bouton" id="G"  value="g" onclick="addLetter('g')">
+                            <img src="/pictures/G.png" alt="">
+                        </button>
+                        <button class="bouton" id="H"  value="h" onclick="addLetter('h')">
+                            <img src="/pictures/H.png" alt="">
+                        </button>
+                        <button class="bouton" id="J"  value="j" onclick="addLetter('j')">
+                            <img src="/pictures/J.png" alt="">
+                        </button>
+                        <button class="bouton" id="K"  value="k" onclick="addLetter('k')">
+                            <img src="/pictures/K.png" alt="">
+                        </button>
+                        <button class="bouton" id="L"  value="l" onclick="addLetter('l')">
+                            <img src="/pictures/L.png" alt="">
+                        </button>
+                        <button class="bouton" id="M"  value="m" onclick="addLetter('m')">
+                            <img src="/pictures/M.png" alt="">
+                        </button>
+                    </div>
+                    <div class="keyboard3">
+                        <button class="bouton" id="W"  value="w" onclick="addLetter('w')">
+                            <img src="/pictures/W.png" alt="">
+                        </button>
+                        <button class="bouton" id="X"  value="x" onclick="addLetter('x')">
+                            <img src="/pictures/X.png" alt="">
+                        </button>
+                        <button class="bouton" id="C"  value="c" onclick="addLetter('c')">
+                            <img src="/pictures/C.png" alt="">
+                        </button>
+                        <button class="bouton" id="V"  value="v" onclick="addLetter('v')">
+                            <img src="/pictures/V.png" alt="">
+                        </button>
+                        <button class="bouton" id="B"  value="b" onclick="addLetter('b')">
+                            <img src="/pictures/B.png" alt="">
+                        </button>
+                        <button class="bouton" id="N"  value="n" onclick="addLetter('n')">
+                            <img src="/pictures/N.png" alt="">
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <!--<a href="/" class="back" >Go to Game Page</a>-->
+            <p>Ynov Campus Montpellier</p>
+        </footer>
+        
+    </body>
+</html>

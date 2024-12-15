@@ -1,0 +1,79 @@
+body{ 
+    margin: 0;
+    padding: 0;
+    background-image: url("/pictures/menu.png");
+    background-repeat: no-repeat; /* Empêche la répétition */
+    background-size: cover; /* Ajuste l'image pour couvrir toute la page */
+    background-position: center; /* Centre l'image */
+    height: 100vh; /* Assure que le corps occupe toute la hauteur de la fenêtre */
+    overflow: hidden;
+    font-family: "Lacquer", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+header { 
+    display: flex;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 50%;
+    position: fixed;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h1{ 
+    font-size: 60px;
+}
+h2 {
+    font-size: 30px;
+}
+
+main { 
+    position: absolute;
+    display: flex;
+    right: 0;
+    left: 0;
+    bottom: 33%;
+    text-align: center;
+    justify-content: center;
+}
+
+main form { 
+    margin: 25px;
+}
+main button { 
+    width: 50%;
+    background: none;
+    border: none;
+    transition: transform 0.3s ease; /* Transition pour l'animation */
+    cursor: pointer;
+} 
+button img { 
+    width: 100%;
+} 
+button:hover {
+    transform: scale(1.2); /* Agrandit le bouton à 120% */
+}
+
+hr { 
+    position: relative;
+    top: 65%;
+    width: 40%;
+}
+
+
+footer {
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Facultatif, pour s'étendre sur toute la largeur */
+    text-align: center; /* Optionnel, pour centrer le contenu */
+}
+footer p { 
+    font-size: 25px;
+}
